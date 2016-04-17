@@ -33,18 +33,28 @@ Notre groupe est composé de 5 étudiants :
 \item HAMMI Marouane (NF28/IA04)
 \item MENIER Charles (NF28)
 \end{itemize}
+
+
+
 \section{Description}
 Le but du projet sera de créer un logiciel de tableau blanc collaboratif, qui permettrait de générer diverses formes, pour réaliser des diagrammes ou des schémas.
 Le projet sera couplé avec celui d'IA04, ce qui nécessitera de mettre en place des agents. Il se destine aux appareils mobiles (smartphones et tablettes). Une attention sera donc portée à la facilité d’utilisation sur des écrans relativement petits et tactiles.
+
+
+
 \section{Intérêt principal}
 On dit qu’un dessin vaut mieux qu’un long discours. Partant de ce principe, l’objectif de Colladia serait de proposer aux utilisateurs une expérience leur permettant de pouvoir dessiner ensemble chacun sur leur propre appareil mobile. 
 
 Les utilisateurs peuvent ainsi modifier le document simultanément, et profiter des interactions tactiles qu’offre ces supports.
 
-\section{Utilisateurs visés}
 
+
+\section{Utilisateurs visés}
 Les premiers utilisateurs visées seront notamment les étudiants et des professionnels qui rencontrent la nécessité de réaliser des diagrammes UML dans leur quotidien.
 L'application sera axé sur ces utilisateurs pour proposer des éléments de diagramme adaptés à leur besoins.
+
+
+
 
 \section{Étude des utilisateurs (interviews, enquêtes)}
 TODO
@@ -89,8 +99,20 @@ Le but de Colladia est donc de proposer les deux points forts ces deux logiciels
 \subsection{Fonctionnalités générales}
 	\begin{itemize}
 		\item Connexion au serveur avec pseudo
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=5cm]{img/accueil.PNG}
+			\caption{Maquette Colladia - Connexion}
+		\end{figure}
+		
 		\item Création d'un nouveau diagramme
 		\item Rejoindre un diagramme parmi une liste de diagrammes existants
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=5cm]{img/workspace-selection.PNG}
+			\caption{Maquette Colladia - Workspace}
+		\end{figure}
+		
 		\item Déplacement de la vue sur le diagramme
 		\item Ajout, Suppression et Modification d'éléments
 	\end{itemize}
@@ -98,6 +120,11 @@ Le but de Colladia est donc de proposer les deux points forts ces deux logiciels
 
 \begin{itemize}
 \item Icône transparent dans le coin pour ouvrir le menu
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=10cm]{img/menu.PNG}
+			\caption{Maquette Colladia - Menu}
+		\end{figure}
 \item Ajout de formes prédéfinies (Classes UML, cercles, carrés, rectangles,...)
 \item Liste des utilisateurs présent sur un même diagramme :
 \begin{itemize}
@@ -111,8 +138,19 @@ Le but de Colladia est donc de proposer les deux points forts ces deux logiciels
 	\item Attirer l’attention des autres utilisateurs (à l’aide d’une flèche)
 	\item Permettre : la modification ou la suppression de l’élément
 \end{itemize}
-
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=10cm]{img/modification.PNG}
+			\caption{Maquette Colladia - Modification d'éléments}
+		\end{figure}
+		
+		
 \item Un appui long dans le vide permet d’ajouter des éléments
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=10cm]{img/diagram-creation.PNG}
+			\caption{Maquette Colladia - Création d'éléments}
+		\end{figure}
 \item Un “double-tap” à 2 doigts permet de  passer du mode dessin au déplacement (et inversement)
 \item Un mouvement de slide permet de se déplacer sur la zone de dessin
 
@@ -160,7 +198,7 @@ Le projet étant couplé avec celui de IA04, il faudra mettre en place un serveu
 Une API REST sera mise en place pour communiquer avec les différents clients.
 
 \subsection{Côté client}
-L’utilisateur aura accès à l’application sur une tablette ou un smartphone.  
+L'utilisateur aura accès à l'application sur une tablette ou un smartphone.  
 Le développement sur ces terminaux peut être réalisé de différentes manières.
 \begin{itemize}
 \item en natif : il aurait alors fallu développer en code natif directement. Ce type de développement oblige un travail de développement important pour le proposer sur diffèrent systèmes d’exploitation (iOS, Android,...). Cependant l’application réalisé est plus performante.
