@@ -6,12 +6,8 @@
 
 % title info
 \newcommand{\ititle}{Cahier des Charges NF28} % title
-\newcommand{\isubtitle}{Projet Colladia \\(Collaborative Diagrams)}
-\newcommand{\iauthor}{IMPELLETTIERI Florian
-						\\VINTACHE Jean
-						\\HAMMI Marouane
-						\\MENIER Charles
-						} % author
+\newcommand{\isubtitle}{Projet Colladia\\(Collaborative Diagrams)}
+\newcommand{\iauthor}{\textsc{Impellettieri} Florian\\\textsc{Vintache} Jean\\\textsc{Hammi} Marouane\\\textsc{Menier} Charles} % author
 \newcommand{\idate}{\today} % date
 
 \input{src/config}
@@ -29,11 +25,11 @@ Ce document constitue le cahier des charges du projet de NF28. Au cours de ce pr
 \subsection{Équipe}
 Notre groupe est composé de 5 étudiants :
 \begin{itemize}
-\item IMPELLETTIERI Florian (NF28/IA04)
-\item VINTACHE Jean (NF28/IA04)
-\item JACQUET Adrien (IA04)
-\item HAMMI Marouane (NF28/IA04)
-\item MENIER Charles (NF28)
+\item \textsc{Impellettieri} Florian (NF28/IA04)
+\item \textsc{Vintache} Jean (NF28/IA04)
+\item \textsc{Jacquet} Adrien (IA04)
+\item \textsc{Hammi} Marouane (NF28/IA04)
+\item \textsc{Menier} Charles (NF28)
 \end{itemize}
 
 
@@ -74,7 +70,7 @@ Néanmoins draw.io, bien que collaboratif n'utilise pas pleinement les fonctionn
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=15cm]{img/drawio.PNG}
+	\includegraphics[width=\textwidth]{img/drawio}
 	\caption{draw.io - Édition en collaboration}
 \end{figure}
 
@@ -84,15 +80,15 @@ Néanmoins draw.io, bien que collaboratif n'utilise pas pleinement les fonctionn
 \subsection{DrawExpress}
 Ce que fait DrawExpress c’est de proposer une éditeur de diagramme sur mobile. Il est cross-plateforme (IOS, Android et BlackBerry) mais il ne permet pas la travail simultané à plusieurs.
 
-\begin{figure}
+\begin{figure}[!h]
 	\centering
-	\includegraphics[width=10cm]{img/DrawExpressRecognition.PNG}
+	\includegraphics[width=.6\textwidth]{img/DrawExpressRecognition}
 	\caption{Aperçu des interactions tactiles de DrawExpress - \\Reconnaissance de forme}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!h]
 	\centering
-	\includegraphics[width=10cm]{img/DrawExpressLinks.PNG}
+	\includegraphics[width=.6\textwidth]{img/DrawExpressLinks}
 	\caption{Aperçu des interactions tactiles de DrawExpress - Tracé de lignes}
 \end{figure}
 
@@ -115,7 +111,7 @@ Le but de Colladia est donc de proposer les deux points forts ces deux logiciels
 		\item Connexion au serveur avec pseudo
 		\begin{figure}[h]
 			\centering
-			\includegraphics[width=5cm]{img/accueil.PNG}
+			\includegraphics[width=5cm]{img/accueil}
 			\caption{Maquette Colladia - Connexion}
 		\end{figure}
 		
@@ -123,7 +119,7 @@ Le but de Colladia est donc de proposer les deux points forts ces deux logiciels
 		\item Rejoindre un diagramme parmi une liste de diagrammes existants
 		\begin{figure}[h]
 			\centering
-			\includegraphics[width=5cm]{img/workspace-selection.PNG}
+			\includegraphics[width=5cm]{img/workspace-selection}
 			\caption{Maquette Colladia - Workspace}
 		\end{figure}
 		
@@ -137,7 +133,7 @@ Le but de Colladia est donc de proposer les deux points forts ces deux logiciels
 \item Icône transparent dans le coin pour ouvrir le menu
 		\begin{figure}[h]
 			\centering
-			\includegraphics[width=10cm]{img/menu.PNG}
+			\includegraphics[width=10cm]{img/menu}
 			\caption{Maquette Colladia - Menu}
 		\end{figure}
 \item Ajout de formes prédéfinies (Classes UML, cercles, carrés, rectangles,...)
@@ -155,7 +151,7 @@ Le but de Colladia est donc de proposer les deux points forts ces deux logiciels
 \end{itemize}
 		\begin{figure}[h]
 			\centering
-			\includegraphics[width=10cm]{img/modification.PNG}
+			\includegraphics[width=10cm]{img/modification}
 			\caption{Maquette Colladia - Modification d'éléments}
 		\end{figure}
 		
@@ -163,7 +159,7 @@ Le but de Colladia est donc de proposer les deux points forts ces deux logiciels
 \item Un appui long dans le vide permet d’ajouter des éléments
 		\begin{figure}[h]
 			\centering
-			\includegraphics[width=10cm]{img/diagram-creation.PNG}
+			\includegraphics[width=10cm]{img/diagram-creation}
 			\caption{Maquette Colladia - Création d'éléments}
 		\end{figure}
 \item Un “double-tap” à 2 doigts permet de  passer du mode dessin au déplacement (et inversement)
@@ -229,7 +225,7 @@ Le développement sur ces terminaux peut être réalisé de différentes manièr
 Après concertation il a été décidé de réaliser l’application cliente avec Xamarin.
 \begin{figure}
 	\centering
-	\includegraphics[width=10cm]{img/Archi.PNG}
+	\includegraphics[width=10cm]{img/Archi}
 	\caption{Schéma de l’architecture de Colladia : Client/Serveur}
 \end{figure}
 
