@@ -22,6 +22,8 @@
 
 \newpage
 \section{Introduction}
+
+\subsection{Contexte}
 Ce document constitue le cahier des charges du projet de NF28. Au cours de ce projet l'objectif sera de proposer à des utilisateurs une expérience d'interaction agréable. Ceci à travers une interface graphique ergonomique adapté aux besoins utilisateurs.
 
 \subsection{Équipe}
@@ -38,30 +40,34 @@ Notre groupe est composé de 5 étudiants :
 
 \section{Description}
 Le but du projet sera de créer un logiciel de tableau blanc collaboratif, qui permettrait de générer diverses formes, pour réaliser des diagrammes ou des schémas.
-Le projet sera couplé avec celui d'IA04, ce qui nécessitera de mettre en place des agents. Il se destine aux appareils mobiles (smartphones et tablettes). Une attention sera donc portée à la facilité d’utilisation sur des écrans relativement petits et tactiles.
+Le projet sera couplé avec celui d'IA04, ce qui nécessitera de mettre en place des agents. Il se destine aux appareils mobiles (smartphones et tablettes). Une attention sera donc portée à la facilité d'utilisation sur des écrans relativement petits et tactiles.
 
 
 
 \section{Intérêt principal}
-On dit qu’un dessin vaut mieux qu’un long discours. Partant de ce principe, l’objectif de Colladia serait de proposer aux utilisateurs une expérience leur permettant de pouvoir dessiner ensemble chacun sur leur propre appareil mobile. 
+On dit qu'un dessin vaut mieux qu'un long discours. Partant de ce principe, l'objectif de Colladia serait de proposer aux utilisateurs une expérience leur permettant de pouvoir dessiner, ensemble, chacun sur leur propre appareil mobile. 
 
-Les utilisateurs peuvent ainsi modifier le document simultanément, et profiter des interactions tactiles qu’offre ces supports.
-
-
+Les utilisateurs peuvent ainsi modifier le document simultanément, et profiter des interactions tactiles qu'offre ces supports.
+Que ce soit en déplacement ou en réunion, il n'est pas toujours possible d'avoir un ordinateur avec soi.
+ 
 
 \section{Utilisateurs visés}
-Les premiers utilisateurs visées seront notamment les étudiants et des professionnels qui rencontrent la nécessité de réaliser des diagrammes UML dans leur quotidien.
+Les premiers utilisateurs visées seront notamment les étudiants et des professionnels qui rencontrent la nécessité de réaliser des diagrammes ou des schémas dans leur quotidien.
 L'application sera axé sur ces utilisateurs pour proposer des éléments de diagramme adaptés à leur besoins.
 
 
 
 
-\section{Étude des utilisateurs (interviews, enquêtes)}
-TODO
+
+
+%\section{Étude des utilisateurs (interviews, enquêtes)}
+%TODO
 
 \newpage
 \section{Étude de quelques logiciels concurrents}
 Lors de nos recherches, deux application semblaient réellement en concurrence avec notre solution. À savoir draw.io de Google et DrawExpress de DrawExpress Inc.
+
+
 
 \subsection{Draw.io}
 Néanmoins draw.io, bien que collaboratif n'utilise pas pleinement les fonctionnalités tactiles des supports mobiles.
@@ -71,6 +77,8 @@ Néanmoins draw.io, bien que collaboratif n'utilise pas pleinement les fonctionn
 	\includegraphics[width=15cm]{img/drawio.PNG}
 	\caption{draw.io - Édition en collaboration}
 \end{figure}
+
+
 
 
 \subsection{DrawExpress}
@@ -90,12 +98,18 @@ Ce que fait DrawExpress c’est de proposer une éditeur de diagramme sur mobile
 
 Cette application constitue une bonne base d’inspiration pour Colladia puisqu’elle est utilise particulièrement les interactions tactiles permises par les smartphones afin de créer, à partir de gestes simples à main levée, des formes prédéfinies qui constituent le diagramme construit. De cette manière, l’ergonomie est optimisée pour les écrans tactiles et de petite taille.
 
-\subsection{Positionnement}
 
+
+
+
+\subsection{Positionnement}
 Le but de Colladia est donc de proposer les deux points forts ces deux logiciels concurrents, à savoir le travail collaboratif et les interactions tactiles.
 
 
+
+
 \section{Fonctionnalités}
+
 \subsection{Fonctionnalités générales}
 	\begin{itemize}
 		\item Connexion au serveur avec pseudo
@@ -116,8 +130,9 @@ Le but de Colladia est donc de proposer les deux points forts ces deux logiciels
 		\item Déplacement de la vue sur le diagramme
 		\item Ajout, Suppression et Modification d'éléments
 	\end{itemize}
+	
+	
 \subsection{Fonctionnalités tactiles}
-
 \begin{itemize}
 \item Icône transparent dans le coin pour ouvrir le menu
 		\begin{figure}[h]
@@ -188,6 +203,10 @@ Néanmoins, voici certaines améliorations que nous essayerions d'apporter à l'
 \item le dessin à main levé qui permet une reconnaissance de forme et d’ajout d’élément automatiquement
 
 \end{itemize}
+
+
+
+
 
 
 \section{Technologies}
