@@ -1,0 +1,19 @@
+\select@language {french}
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}\IeC {\'E}quipe}{2}{subsection.1.1}
+\contentsline {section}{\numberline {2}Description}{2}{section.2}
+\contentsline {section}{\numberline {3}Int\IeC {\'e}r\IeC {\^e}t principal}{2}{section.3}
+\contentsline {section}{\numberline {4}Utilisateurs vis\IeC {\'e}s}{2}{section.4}
+\contentsline {section}{\numberline {5}\IeC {\'E}tude des utilisateurs (interviews, enqu\IeC {\^e}tes)}{3}{section.5}
+\contentsline {section}{\numberline {6}\IeC {\'E}tude de quelques logiciels concurrents}{4}{section.6}
+\contentsline {subsection}{\numberline {6.1}Draw.io}{4}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}DrawExpress}{4}{subsection.6.2}
+\contentsline {subsection}{\numberline {6.3}Positionnement}{4}{subsection.6.3}
+\contentsline {section}{\numberline {7}Fonctionnalit\IeC {\'e}s}{6}{section.7}
+\contentsline {subsection}{\numberline {7.1}Fonctionnalit\IeC {\'e}s g\IeC {\'e}n\IeC {\'e}rales}{6}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}Fonctionnalit\IeC {\'e}s tactiles}{6}{subsection.7.2}
+\contentsline {subsection}{\numberline {7.3}Fonctionnalit\IeC {\'e}s optionnelles}{6}{subsection.7.3}
+\contentsline {section}{\numberline {8}Technologies}{7}{section.8}
+\contentsline {subsection}{\numberline {8.1}C\IeC {\^o}t\IeC {\'e} serveur}{7}{subsection.8.1}
+\contentsline {subsection}{\numberline {8.2}C\IeC {\^o}t\IeC {\'e} client}{7}{subsection.8.2}
+\contentsfinish 
