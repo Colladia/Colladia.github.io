@@ -23,8 +23,11 @@ La structure du SMA est divisée en deux conteneurs :
 
 \vspace*{\fill}
 \begin{figure}[!h]
+	\begin{center}
 	\includegraphics[width=.9\textwidth]{img/general_server}
 	\caption{Schéma de l'architecture générale du serveur}
+	\vspace*{-.5cm}
+	\end{center}
 \end{figure}
 
 \subsection{Description de l'interface REST}
@@ -92,8 +95,131 @@ Pour exécuter l'algorithme d'auto-positionnement, il faut spécifier dans la re
 Cette requête induit la sauvegarde de 0+ modifications de type POST, une par fils auto-positionnable. Un fils est dit auto-positionnable si il contient des propriétés suffisantes pour permettre un repositionnement, dans notre cas \lstinline$xMin$, \lstinline$xMax$, \lstinline$yMin$ et \lstinline$yMax$.
 Chaque modification enregistrée contient un champ \lstinline$path$ contenant le chemin de l'EltAgt modifié ainsi qu'un champ \lstinline$properties$ récapitulant les altérations effectuées.
 
+\newpage
 \subsection{Description des agents et des comportements}
+\subsubsection{RestAgt}
+Le RestAgt est couplé à une classe définissant un serveur Restlet de manière à pouvoir récupérer des requêtes REST puis à les transférer aux agents pouvant y répondre.
+L'agent est aussi responsable de la création des nouveaux diagrammes (PUT) et de fournir aux clients la liste des diagrammes existant sur le serveur (GET).
+À sa création, le RestAgt s'enregistre auprès du Directory Facilitator (DF) en tant qu'interface REST.
+
+On peut dénombrer deux comportements pour cet agent.
+Le premier n'est pas une classe fille de la classe Behaviour, mais on peut considérer que le fait d'attendre les requêtes REST au niveau du serveur Restlet rentre dans la catégorie du comportement au sens multi-agent du terme.
+À la réception d'une requête, créé un nouveau diagramme ou retourne la liste des diagrammes disponibles si besoin.
+Sinon, envoie la requête sous forme de message ACL au EltAgt racine du diagramme ciblé par la requête et lance un ReceiveBhv.
+L'AID du ClockAgt du diagramme est aussi insérée au niveau du champ \lstinline$reply-to$ du message.
+Le ConversationId est généré par la classe Java UUID.
+
+Le ReceiveBhv attend un message de retour pour une requête envoyée précédemment puis formule la réponse à la requête REST initiale du client.
+
+\subsubsection{SaveAgt}
+Le SaveAgt est responsable de la sauvegarde et de la restauration de l'état des diagrammes après un éventuel redémarrage du serveur.
+La description de chaque diagramme est stocké dans un fichier au format JSON.
+Le premier comportement, dit RestoreBhv, est un OneShotBehaviour lancé au démarrage de l'agent et qui, à partir des données sauvegardées, créé les différents diagrammes (EltAgt racine + ClockAgt + HistAgt) et envoie un message au nouveau EltAgt pour restaurer la valeur de ses propriétés et de ses sous-éléments.
+Une fois les différents messages envoyés, lance le TickerBhv et le ReceiveBhv.
+
+Le TickerBhv est un comportement chargé d'envoyer régulièrement des messages GET aux différents EltAgt racine des diagrammes pour récupérer leur description complète.
+Le ReceiveBhv est un comportement cyclique qui récupère les réponses à ces messages et écrit les descriptions reçues dans des fichiers .json.
+
+\subsubsection{ClockAgt}
+Le ClockAgt est chargé de gérer l'horloge du diagramme et exprime un unique comportement cyclique, le ReceiveBhv.
+Il attend un message de type INFORM provenant d'un EltAgt, incrémente l'horloge si le message ne comporte par d'option \lstinline$no-history$ et est de type POST, PUT ou DELETE, puis, dans tous les cas, ajoute un champ \lstinline$clock$ au message comportant la valeur la plus récente de l'horloge.
+Le message est ensuite envoyé au HistAgt.
+
+\subsubsection{HistAgt}
+Le HistAgt est l'agent chargé de gérer l'historique des modifications et comporte un unique CyclicBehaviour encore une fois nommé ReceiveBhv.
+Il réceptionne les messages envoyés par le ClockAgt, et si le message ne comporte par d'option \lstinline$no-history$ et est de type POST, PUT ou DELETE, ajoute le contenu du message, la modification, à l'historique.
+
+L'HistAgt est aussi chargé de formuler la réponse à la requête REST initiale si le message reçu du ClockAgt ne comporte pas une option \lstinline$no-reply$.
+Dans ce cas, si le message intègre un champ \lstinline$last-clock$ et que sa valeur est supérieure à l'horloge de la première modification encore stockée dans la liste des modifications, l'agent renvoie au RestAgt la liste des modifications appliquée depuis celle portant l'horloge \lstinline$last-clock$.
+Sinon envoie un message au EltAgt racine pour récupérer la description complète du diagramme en ajoutant un champ \lstinline$reply-to$ vers le RestAgt.
+
+\subsubsection{EltAgt}
+Agent chargé de stocker l'état courant d'un élément ou du diagramme lui-même.
+Pour chaque diagramme, les EltAgt forment une arborescence et la racine, qui représente le diagramme en soi, s'enregistre auprès du DF.
+Chaque EltAgt implémente des fonctions permettant entre autre d'ajouter, supprimer, modifier des éléments.
+C'est aussi eux qui délibèrent pour permettre un auto-positionnement des éléments à la demande du client.
+
+\paragraph{ReceiveBhv}
+Le principal comportement utilisé, le ReceiveBhv, est un CyclicBehaviour lancé au démarrage de l'agent et qui attend des messages de requêtes des autres agents, que ce soit du RestAgt, du SaveAgt ou d'un autre EltAgt du diagramme.
+Le fonctionnement de ce comportement après réception d'un message de type REQUEST peut être résumé comme ceci :
+\begin{itemize}
+	\item PUT :
+	\begin{itemize}
+		\item Si l'élément courant est l'avant-dernier élément de l'URI, ajoute un nouvel élément si celui-ci n'existe pas déjà (création d'un EltAgt et ajout à l'arborescence).
+		\item Sinon, transfert du message au fils correspondant au prochain élément dans l'URI si il existe ou retourne une erreur.
+	\end{itemize}
+  \item GET :
+	\begin{itemize}
+		\item Si l'élément courant a une profondeur dans l'arborescence strictement inférieure à celle de la cible de l'URI, transfert du message au fils correspondant au prochain élément dans l'URI si il existe ou retourne une erreur.
+		\item Sinon :
+		\begin{itemize}
+			\item Si l'élément est une feuille, répond au message en envoyant la liste des propriétés et leurs valeurs.
+			\item Sinon, transfert le message à tous les sous-éléments et lance un comportement WaitDescriptionBhv pour attendre les réponses.
+		\end{itemize}
+	\end{itemize}
+	\newpage
+	\item DELETE :
+	\begin{itemize}
+		\item Si la requête contient un champ \lstinline$properties-list$ (suppression de propriété) :
+		\begin{itemize}
+			\item Si l'élément courant est le dernier élément de l'URI, suppression des propriétés dans l'élément si elles existent.
+			\item Sinon, transfert du message au fils correspondant au prochain élément dans l'URI si il existe ou retourne une erreur.
+		\end{itemize}
+		\item Sinon (suppression d'élément) :
+		\begin{itemize}
+			\item Si l'élément courant a une profondeur dans l'arborescence strictement inférieure à celle de la cible de l'URI, transfert du message au fils correspondant au prochain élément dans l'URI si il existe ou retourne une erreur.
+			\item Sinon :
+			\begin{itemize}
+				\item Si l'élément courant est le dernier élément de l'URI, envoie une réponse à l'expéditeur initiale de la requête.
+				\item Transfert du message à tous les fils.
+				\item Autodestruction de l'agent.
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	\item POST :
+	\begin{itemize}
+		\item Si l'élément courant est le dernier élément de l'URI :
+		\begin{itemize}
+			\item Si le message comporte une option \lstinline$auto-positioning$ (auto-positionnement des fils) :
+			\begin{itemize}
+				\item Envoi un message de type CFP (Call For Proposal) à tous les fils comportant un angle pour la dispersion ainsi que la largeur et la longueur de l'élément courant pouvant prendre la valeur -1 pour indiquer une taille infinie.
+				\item Lance un nouveau comportement WaitProposalBhv avec en paramètre le nombre de messages envoyés vers les fils.
+			\end{itemize}
+			\item Sinon, si le message comporte un champ \lstinline$properties$, modification des propriétés de l'élément et envoi une réponse à l'expéditeur initial de la requête.
+		\end{itemize}
+		\item Sinon, transfert du message au fils correspondant au prochain élément dans l'URI si il existe ou retourne une erreur.
+	\end{itemize}
+	\item RESTORE (type supplémentaire du serveur pour la restauration des diagrammes) :
+	\begin{itemize}
+		\item Pour chaque couple (clef, valeur) du champ \lstinline$properties$ :
+		\begin{itemize}
+			\item Si la valeur est un objet JSON, créé un nouvel élément, l'ajoute à l'arborescence et lui envoie un message de restauration contenant la valeur du couple.
+			\item Sinon, c'est une propriété, et on l'ajoute à celles de l'élément courant.
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\paragraph{Autres comportements}
+Le comportement WaitDescriptionBhv est lancé après avoir envoyé des messages aux fils suite à un GET et attend leurs descriptions respectives.
+Une fois la description de tous les fils reçus, formule une réponse au message de requête reçu initialement (en prenant en compte le \lstinline$reply-to$).
+
+Le ReceiveCFPBhv est un comportement cyclique lancé au démarrage de l'agent qui, à chaque réception d'un message CFP par l'agent lance un nouveau ProposeBhv.
+Ce dernier commence par placer l'élément au centre de son père, puis envoi ses nouvelles coordonnées (\lstinline$x$ et \lstinline$y$) ainsi que ses dimensions (\lstinline$width$ et \lstinline$height$) au père dans un message PROPOSE.
+Tant que ce dernier renvoi des REJECT\_PROPOSAL, avance d'un pas fixé dans la direction donnée par l'élément père au lancement de l'algorithme d'auto-positionnement.
+Une fois un ACCEPT\_PROPOSAL reçu, envoi un message au HistAgt du diagramme pour enregistrer la modification des coordonnées.
+Sachant que plusieurs modifications peuvent être engendrées par une seule requête d'auto-positionnement et qu'une requête REST n'accepte qu'une unique réponse, on ajoute un flag \lstinline$no-reply$ au message, de manière à ce que ce message n'engendre pas une réponse au RestAgt qui serait ensuite transférée au client.
+Si, lors d'une itération l'élément ne peut plus se déplacer ni en x ni en y car il a atteint les limites de son père, alors il intègre une option \lstinline$force$ à son message pour forcer l'acceptation de la proposition.
+Si l'élément ne comporte pas les propriétés nécessaires aux calculs d'auto-positionnement (\lstinline$xMin$, \lstinline$xMax$,\lstinline$yMin$ et \lstinline$yMax$), il renvoi un message ayant un performatif REFUSE.
+
+Le comportement WaitProposalBhv est lancé au début de chaque algorithme d'auto-positionnement en sachant combien de CFP ont été envoyés à des fils et entretien une liste des coordonnées et dimensions des éléments fils dont la nouvelle position a déjà été acceptée.
+À la réception d'un message de type REFUSE, décrémente le compteur de message attendu.
+À la réception d'un message PROPOSE, si la nouvelle position de l'élément fils chevauche celle d'un des éléments déjà accepté, retourne un message de type REJECT\_PROPOSAL, sinon, un ACCEPT\_PROPOSAL.
+Dans le cas où le message reçu comporte une option \lstinline$force$, renvoie toujours un ACCEPT\_PROPOSAL.
+Chaque envoi d'un ACCEPT\_PROPOSAL induit une décrémentation du compteur.
+Une fois que le compteur atteint 0, répond au message de requête initial en ajoutant une option \lstinline$no-history$, de manière à fournir une réponse à la requête REST incluant uniquement les modifications réalisées par ses fils.
 
 \subsection{Description générale des messages}
 
-% \subsection{Description détaillée des fonctionnalités}
+\subsection{Limites et améliorations}
+% \
+% auto-positionnement
