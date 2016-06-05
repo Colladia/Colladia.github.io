@@ -107,7 +107,7 @@ Le premier n'est pas une classe fille de la classe Behaviour, mais on peut consi
 À la réception d'une requête, créé un nouveau diagramme ou retourne la liste des diagrammes disponibles si besoin.
 Sinon, envoie la requête sous forme de message ACL au EltAgt racine du diagramme ciblé par la requête et lance un ReceiveBhv.
 L'AID du ClockAgt du diagramme est aussi insérée au niveau du champ \lstinline$reply-to$ du message.
-Le ConversationId est généré par la classe Java UUID.
+Le \lstinline$conversation-id$ est généré par la classe Java UUID.
 
 Le ReceiveBhv attend un message de retour pour une requête envoyée précédemment puis formule la réponse à la requête REST initiale du client.
 
@@ -199,6 +199,7 @@ Le fonctionnement de ce comportement après réception d'un message de type REQU
 	\end{itemize}
 \end{itemize}
 
+\newpage
 \paragraph{Autres comportements}
 Le comportement WaitDescriptionBhv est lancé après avoir envoyé des messages aux fils suite à un GET et attend leurs descriptions respectives.
 Une fois la description de tous les fils reçus, formule une réponse au message de requête reçu initialement (en prenant en compte le \lstinline$reply-to$).
@@ -206,20 +207,159 @@ Une fois la description de tous les fils reçus, formule une réponse au message
 Le ReceiveCFPBhv est un comportement cyclique lancé au démarrage de l'agent qui, à chaque réception d'un message CFP par l'agent lance un nouveau ProposeBhv.
 Ce dernier commence par placer l'élément au centre de son père, puis envoi ses nouvelles coordonnées (\lstinline$x$ et \lstinline$y$) ainsi que ses dimensions (\lstinline$width$ et \lstinline$height$) au père dans un message PROPOSE.
 Tant que ce dernier renvoi des REJECT\_PROPOSAL, avance d'un pas fixé dans la direction donnée par l'élément père au lancement de l'algorithme d'auto-positionnement.
-Une fois un ACCEPT\_PROPOSAL reçu, envoi un message au HistAgt du diagramme pour enregistrer la modification des coordonnées.
+
+Une fois un ACCEPT\_PROPOSAL reçu, il envoi un message au HistAgt du diagramme pour enregistrer la modification des coordonnées.
 Sachant que plusieurs modifications peuvent être engendrées par une seule requête d'auto-positionnement et qu'une requête REST n'accepte qu'une unique réponse, on ajoute un flag \lstinline$no-reply$ au message, de manière à ce que ce message n'engendre pas une réponse au RestAgt qui serait ensuite transférée au client.
-Si, lors d'une itération l'élément ne peut plus se déplacer ni en x ni en y car il a atteint les limites de son père, alors il intègre une option \lstinline$force$ à son message pour forcer l'acceptation de la proposition.
-Si l'élément ne comporte pas les propriétés nécessaires aux calculs d'auto-positionnement (\lstinline$xMin$, \lstinline$xMax$,\lstinline$yMin$ et \lstinline$yMax$), il renvoi un message ayant un performatif REFUSE.
+
+Si, lors d'une itération l'élément ne peut plus se déplacer en x ou en y car il a atteint les limites de son père, alors il intègre une option \lstinline$force$ à son message pour forcer l'acceptation de la proposition.
+Si l'élément ne comporte pas les propriétés nécessaires aux calculs d'auto-positionnement (\lstinline$xMin$, \lstinline$xMax$, \lstinline$yMin$ et \lstinline$yMax$), il renvoie un message ayant un performatif REFUSE.
 
 Le comportement WaitProposalBhv est lancé au début de chaque algorithme d'auto-positionnement en sachant combien de CFP ont été envoyés à des fils et entretien une liste des coordonnées et dimensions des éléments fils dont la nouvelle position a déjà été acceptée.
 À la réception d'un message de type REFUSE, décrémente le compteur de message attendu.
 À la réception d'un message PROPOSE, si la nouvelle position de l'élément fils chevauche celle d'un des éléments déjà accepté, retourne un message de type REJECT\_PROPOSAL, sinon, un ACCEPT\_PROPOSAL.
+
 Dans le cas où le message reçu comporte une option \lstinline$force$, renvoie toujours un ACCEPT\_PROPOSAL.
 Chaque envoi d'un ACCEPT\_PROPOSAL induit une décrémentation du compteur.
 Une fois que le compteur atteint 0, répond au message de requête initial en ajoutant une option \lstinline$no-history$, de manière à fournir une réponse à la requête REST incluant uniquement les modifications réalisées par ses fils.
 
-\subsection{Description générale des messages}
+\newpage
+\subsection{Description des messages}
+Pour tous les types de message décrits ci-après, le champ \lstinline$conversation-id$ est un UUID unique généré lors de la réception d'une requête REST par le serveur Restlet.
+Tous les messages ACL généré suite à cette requête utilisent ce même identifiant.
+Le champ FIPA \lstinline$content$ est toujours un dictionnaire JSON sérialisé.
+Les champs utilisés ci-dessous ne faisant pas parti du formalisme FIPA sont des champs de ce dictionnaire.
 
-\subsection{Limites et améliorations}
+\subsubsection{RestAgt}
+Tous les messages envoyés par le RestAgt respectent le patron suivant :
+\begin{itemize}
+	\item \lstinline$performative$ : REQUEST
+	\item \lstinline$receivers$ : un EltAgt racine
+	\item \lstinline$reply-to$ : ClockAgt
+	\item \lstinline$type$ : PUT, GET, DELETE ou POST dépendant du type de la requête REST initiale
+	\item \lstinline$path$ : chemin du diagramme élément visé par la requête sous forme de tableau JSON
+	\item \lstinline$properties$ : liste des propriétés et de leurs valeurs dans le cas d'une modification/création d'un élément
+	\item \lstinline$properties-list$ : liste des propriétés à supprimer au sein d'un élément pour certaines requêtes DELETE
+	\item \lstinline$options$ : \lstinline$[auto-positionning]$
+	\item \lstinline$last-clock$ : dernière horloge reçue par le client si spécifiée dans la requête REST
+\end{itemize}
+
+\subsubsection{SaveAgt}
+Au démarrage du serveur, envoi des messages respectant le format suivant aux nouveaux EltAgt créés de manière à restaurer l'état du diagramme :
+\begin{itemize}
+	\item \lstinline$performative$ : REQUEST
+	\item \lstinline$receivers$ : un EltAgt racine (une fois créé)
+	\item \lstinline$type$ : RESTORE
+	\item \lstinline$description$ : description récursive des propriétés du diagramme et de ses éléments sous forme de dictionnaires JSON imbriqués
+\end{itemize}
+~\\
+Une fois la phase de restauration terminée, le SaveAgt envoi à chaque tick de son TickerBhv le message suivant à tous les EltAgt racine :
+\begin{itemize}
+	\item \lstinline$performative$ : REQUEST
+	\item \lstinline$receivers$ : tous les EltAgt racine
+	\item \lstinline$type$ : GET
+	\item \lstinline$path$ : \lstinline$[]$ (liste vide pour que l'EltAgt retourne la description complète du diagramme)
+\end{itemize}
+
+\subsubsection{ClockAgt}
+Les messages reçus par le ClockAgt sont transférés au HistAgt après ajout d'un champ \lstinline$clock$, et respectent le format suivant :
+\begin{itemize}
+	\item \lstinline$performative$ : INFORM
+	\item \lstinline$receivers$ : HistAgt
+	\item \lstinline$content$ : identique à celui du message reçu avec ajout d'un champ \lstinline$clock$ contenant la dernière valeur de l'horloge logique du diagramme
+\end{itemize}
+
+\subsubsection{HistAgt}
+Si le HistAgt a pu récupérer la liste des modifications demandées par le client, envoi le message suivant au RestAgt :
+\begin{itemize}
+	\item \lstinline$performative$ : INFORM
+	\item \lstinline$receivers$ : RestAgt
+	\item \lstinline$status$ : 200
+	\item \lstinline$clock$ : dernière valeur de l'horloge logique (récupérée à partir du dernier message reçu)
+	\item \lstinline$modification-list$ : liste des modifications appliquées au diagramme depuis l'horloge \lstinline$last-clock$ spécifiée par le client
+\end{itemize}
+~\\
+Sinon, on envoie un message au EltAgt racine pour obtenir la description complète du diagramme et la transférer au RestAgt :
+\begin{itemize}
+	\item \lstinline$performative$ : INFORM
+	\item \lstinline$receivers$ : EltAgt racine
+	\item \lstinline$reply-to$ : RestAgt
+	\item \lstinline$type$ : GET
+	\item \lstinline$path$ : \lstinline$[]$ (liste vide pour que l'EltAgt retourne la description complète du diagramme)
+	\item \lstinline$clock$ : valeur de l'horloge logique insérée dans le contenu du message par le ClockAgt
+\end{itemize}
+
+\subsubsection{EltAgt}
+Au niveau des éléments, on peut distinguer deux grandes familles de messages, les messages internes, envoyés d'un EltAgt à un autre EltAgt de l'arborescence, et les messages qui ont pour destinataires d'autres agents du diagramme (ClockAgt, RestAgt, etc.).
+Pour les messages dirigés vers l'extérieur, il existe deux possibilités.
+Soit l’exécution de la requête s'est déroulée sans encombres :
+\begin{itemize}
+	\item \lstinline$performative$ : INFORM
+	\item \lstinline$receivers$ : valeur du champ \lstinline$reply-to$, ou \lstinline$sender$ si le premier est inexistant	
+  \item \lstinline$status$ : 200
+  \item \lstinline$content$ : contenu de la requête initial plus les éventuels champs suivants :
+  \item \lstinline$description$ : description récursive d'un élément du diagramme ou du diagramme complet dans le cas d'une requête GET
+\end{itemize}
+
+Soit elle a générée une erreur :
+\begin{itemize}
+	\item \lstinline$performative$ : FAILURE
+	\item \lstinline$receivers$ : valeur du champ \lstinline$sender$ de la requête (le \lstinline$reply-to$ est ignoré)
+  \item \lstinline$status$ : un code d'erreur (3xx, 4xx ou 5xx)
+  \item \lstinline$error$ : message de description de l'erreur
+\end{itemize}
+~\\
+Pour les messages internes, on peut distinguer deux types de messages en plus de ceux liés à l'algorithme d'auto-positionnement.
+Lors du transfert d'un message vers le prochain fils de l'URI, l’entièreté des champs du message sont conservés, \lstinline$reply-to$ et \lstinline$sender$ compris.
+
+Pour ce qui est des requêtes GET en revanche, une fois que la cible de l'URI a été passée, les messages envoyés aux différents fils en supprimant le champ \lstinline$reply-to$ et en mettant l'AID de l'EltAgt courant dans le champ \lstinline$sender$.
+Ainsi, une fois qu'un élément à récupéré récursivement sa description, il crée une réponse au message de requête reçu.
+Le destinataire sera alors l'agent externe à l'arborescence ayant envoyé la requête ou le \lstinline$reply-to$ qu'il a spécifié si l'agent courant était la cible de l'URI, ou bien le père dans l'arborescence des éléments du diagramme.
+
+\paragraph{Messages liés à l'algorithme d'auto-positionnement}
+À la réception d'une demande d'auto-positionnement, la cible de l'URI transfère à tous ces fils un message respectant le format suivant :
+\begin{itemize}
+	\item \lstinline$performative$ : CFP
+	\item \lstinline$receivers$ : un EltAgt fils
+	\item \lstinline$x$, \lstinline$y$, \lstinline$width$ et \lstinline$height$ : valeurs calculées à partir des propriétés \lstinline$xMin$, \lstinline$xMax$, \lstinline$yMin$ et \lstinline$yMax$ de l'élément
+	\item \lstinline$angle$ : un angle de dérivation donné par la formule $\frac{2 \pi}{n} * i$ où $n$ est le nombre de fils et $i$ l'index du fils dans la liste des fils
+\end{itemize}
+~\\
+L'EltAgt recevant ce message renvoi alors un message REFUSE si il n'est pas auto-positionnable :
+\begin{itemize}
+	\item \lstinline$performative$ : REFUSE
+	\item \lstinline$receivers$ : EltAgt père dont l'AID est donnée par le champ \lstinline$sender$ du CFP reçu
+\end{itemize}
+~\\
+Une proposition dans le cas contraire ou si un REJECT\_PROPOSAL a été reçu de la part du père suite à une proposition :
+\begin{itemize}
+	\item \lstinline$performative$ : PROPOSE
+	\item \lstinline$receivers$ : EltAgt père dont l'AID est donnée par le champ \lstinline$sender$ du dernier message CFP ou REJECT\_PROPOSAL reçu
+	\item \lstinline$x$, \lstinline$y$, \lstinline$width$ et \lstinline$height$ : nouvelles coordonnées proposées ainsi que les dimensions pour vérifier l'existence de chevauchement
+	\item \lstinline$options$ : \lstinline$[force]$ si l'élément a atteint les limites de son père
+\end{itemize}
+~\\
+Les messages permettant d'accepter ou de refuser une proposition sont relativement simples :
+\begin{itemize}
+	\item \lstinline$performative$ : REJECT\_PROPOSAL ou ACCEPT\_PROPOSAL
+	\item \lstinline$receivers$ : L'EltAgt fils ayant soumis une proposition
+\end{itemize}
+
+Une fois qu'un élément a vu sa proposition acceptée, il envoie un message contenant ses nouvelles coordonnées pour le HistAgt :
+\begin{itemize}
+	\item \lstinline$perfomative$ : INFORM
+	\item \lstinline$receivers$ : ClockAgt
+	\item \lstinline$type$ : POST
+	\item \lstinline$properties$ : \lstinline${xMin:<value>, xMax:<value>, yMin:<value>, yMax:<value>}$
+	\item \lstinline$options$ : \lstinline$[no-reply, auto-positionning]$
+\end{itemize}
+~\\
+Une fois l'auto-positionnement de tous les fils réalisés, l'EltAgt père envoi un message au HistAgt pour qu'une réponse soit formulée à la requête REST initiale :
+\begin{itemize}
+	\item \lstinline$perfomative$ : INFORM
+	\item \lstinline$receivers$ : ClockAgt
+	\item \lstinline$options$ : \lstinline$[no-history, auto-positionning]$
+\end{itemize}
+
+% \subsection{Limites et améliorations}
 % \
 % auto-positionnement
