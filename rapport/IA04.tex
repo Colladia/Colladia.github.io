@@ -211,7 +211,7 @@ Tant que ce dernier renvoi des REJECT\_PROPOSAL, avance d'un pas fixé dans la d
 Une fois un ACCEPT\_PROPOSAL reçu, il envoi un message au HistAgt du diagramme pour enregistrer la modification des coordonnées.
 Sachant que plusieurs modifications peuvent être engendrées par une seule requête d'auto-positionnement et qu'une requête REST n'accepte qu'une unique réponse, on ajoute un flag \lstinline$no-reply$ au message, de manière à ce que ce message n'engendre pas une réponse au RestAgt qui serait ensuite transférée au client.
 
-Si, lors d'une itération l'élément ne peut plus se déplacer en x ou en y car il a atteint les limites de son père, alors il intègre une option \lstinline$force$ à son message pour forcer l'acceptation de la proposition.
+Si, lors d'une itération l'élément ne peut plus se déplacer en x et en y car il a atteint les limites de son père, alors il intègre une option \lstinline$force$ à son message pour forcer l'acceptation de la proposition.
 Si l'élément ne comporte pas les propriétés nécessaires aux calculs d'auto-positionnement (\lstinline$xMin$, \lstinline$xMax$, \lstinline$yMin$ et \lstinline$yMax$), il renvoie un message ayant un performatif REFUSE.
 
 Le comportement WaitProposalBhv est lancé au début de chaque algorithme d'auto-positionnement en sachant combien de CFP ont été envoyés à des fils et entretien une liste des coordonnées et dimensions des éléments fils dont la nouvelle position a déjà été acceptée.
