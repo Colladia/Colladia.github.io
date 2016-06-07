@@ -1,0 +1,73 @@
+\documentclass[11pt]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[francais]{babel}
+
+\input{src/config}
+
+% title info
+\title{Projet IA04 - NF28}
+\subtitle{Colladia, éditeur de diagramme collaboratif}
+\author{Jean Vintache\\Florian Impellettieri\\Charles Menier\\Marouane Hammi\\Adrien Jacquet}
+% \author[short]{author}
+\date{\today}
+% \titlegraphic{\vspace{-2.25cm}\includegraphics[height=4cm]{img/gliese581_2.jpg}}
+\logo{ % logo on titlepage only
+	\ifnum \insertpagenumber=1
+		\vspace{-0.2cm}\includegraphics[scale=0.1]{img/utc-logo.jpg}
+	\fi
+}
+
+% \AtBeginSection[]
+% {
+%    \begin{frame}%[allowframebreaks] % multiple frames
+% 	   \frametitle{Sommaire}
+% 	   \tableofcontents[currentsection]
+%    \end{frame}
+% }
+
+
+\begin{document}
+\small
+
+\begin{frame}
+	\vspace{-0.75cm}
+	\titlepage
+\end{frame}
+
+%\begin{frame}%[allowframebreaks] % multiple frames
+%	\frametitle{Sommaire}
+%	\tableofcontents
+%\end{frame}
+
+\section{Présentation du projet}
+\begin{frame}
+	\frametitle{\currentname}
+	\begin{itemize}
+		\item Éditeur de diagramme collaboratif pour Android
+		\\~\\
+		\item Serveur :
+		\begin{itemize}
+			\item Système multi-agent JADE
+			\item Sauvegarde et synchronise l'état des diagrammes entre les différents clients
+			\item Implémente des fonctions d'ajout, modification, suppression et auto-positionnement d'éléments
+		\end{itemize}
+		~\\
+		\item Client :
+		\begin{itemize}
+			\item Communication avec le serveur via des requêtes REST
+			\item Synchronisation par des GET périodiques
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\section{Architecture générale du serveur}
+\begin{frame}
+	\frametitle{\currentname}
+	\begin{center}
+		\includegraphics[width=\textwidth]{img/general_server}
+	\end{center}
+\end{frame}
+
+\end{document}
