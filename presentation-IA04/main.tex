@@ -7,8 +7,8 @@
 \input{src/config}
 
 % title info
-\title{Projet IA04 - NF28}
-\subtitle{Colladia, éditeur de diagramme collaboratif}
+% \title{Projet IA04 - NF28}
+% \subtitle{Colladia, éditeur de diagramme collaboratif}
 \author{Jean Vintache\\Florian Impellettieri\\Charles Menier\\Marouane Hammi\\Adrien Jacquet}
 % \author[short]{author}
 \date{\today}
@@ -29,6 +29,21 @@
 
 
 \begin{document}
+\newcommand*{\ClipSep}{0.3cm}
+\title{
+		\hspace*{-.55cm}
+		\begin{tikzpicture}
+		\node [inner sep=0pt] at (0,0) {\includegraphics[width=\textwidth]{img/colladia-banner}};
+		\draw [white, rounded corners=\ClipSep, line width=\ClipSep] 
+				(current bounding box.north west) -- 
+				(current bounding box.north east) --
+				(current bounding box.south east) --
+				(current bounding box.south west) -- cycle
+				;
+		\end{tikzpicture}
+}
+
+
 \small
 
 \begin{frame}
