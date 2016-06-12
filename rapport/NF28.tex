@@ -215,20 +215,17 @@ Dans cette partie, on rendra compte des fonctionnalités prévues du cahier des 
 		\end{figure}
 \end{itemize}
 
-\newpage
-\subsubsection{Fonctionnalités tactiles non-implémentées}
+L'espace de travail est virtuellement infini. Ainsi, il est plutôt facile de se perdre et de ne pas retrouver les éléments créés. Afin de pallier à ce problème d'utilisabilité, un item du menu contextuel principal permet de recentrer la vue sur l'origine.
+
+Un autre item de ce menu contextuel permet d'effectuer une requête au serveur pour attribuer une nouvelle position à tous les éléments en évitant les chevauchements. Toutefois, cette méthode ne prend pas encore en compte les liens qui peuvent relier certains éléments.
+
+\subsubsection{Fonctionnalités non-implémentées}
 Dans la version actuelle de l'application, la gestion des collaborateurs n'est pas effectuée.
 Il n'est donc pas possible de voir les vues des collaborateurs, ni de connaître la liste des utilisateurs connectés à un instant précis.
 Néanmoins lorsqu'un élément est sélectionné, il prend la couleur spécifique de l'utilisateur.
 Ainsi il est possible de déterminer lorsqu'un item est modifié par un collaborateur. 
 La gestion des différents niveaux de plans n'est pas proposé, ainsi que le fait d'attirer l'attention de l'utilisateur sur un élément en particulier, même si cette fonctionnalité est retrouvé lorsque l'on sélectionne l'élément, ce qui le colore. 
 
-\subsubsection{Fonctionnalités tactiles supplémentaires}
-Afin de donner une expérience plus intéressante pour l'utilisateur et d'utiliser les capacités du système multi-agents du serveur, il est possible de :
-\begin{itemize}
-	\item Replacer la vue de l'utilisateur au centre du diagramme pour s'assurer que l'utilisateur puisse toujours se repérer.
-	\item Réorganiser l'ensemble des éléments existants en demandant au serveur de replacer les éléments sans que ces derniers ne se chevauchent.
-\end{itemize}
 
 \subsubsection{Fonctionnalités optionnelles}
 Voici les fonctionnalités optionnelles pour améliorer l'expérience utilisateur qui avaient été proposées au début du projet :
@@ -270,7 +267,7 @@ Une fois un diagramme sélectionné, la dernière vue est affichée pour permett
  	\vspace*{\fill}
 \vspace*{-.5cm}
 
-\subsubsection{Architecture Général}
+\subsubsection{Architecture Générale}
 L'application peut-être schématisée comme suit, à savoir le contrôleur situé entre la vue et le modèle. Dès qu'une modification est effectuée au niveau de la liste des éléments du modèle le contrôleur met à jour la vue.
 Dans le sens contraire lorsque l'utilisateur interagit avec la vue une requête est envoyé au serveur pour mette à jour le diagramme sur le serveur pour les autres utilisateurs.
 Le modèle est mis à jour par le serveur par le retour d'une requête de modification ou par la réponse d'une requête GET qui est réalisé périodiquement pour savoir si de nouvelles modifications sont présentes sur le serveur.
