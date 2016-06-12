@@ -106,11 +106,9 @@ Le but de Colladia est donc de proposer les deux points forts ces deux logiciels
 Dans cette partie, on rendra compte des fonctionnalités prévues du cahier des charges, en précisant les modifications qu'elles ont subies lors de leur implémentation.
 
 \subsubsection{Fonctionnalités générales}
-	\begin{itemize}
-		\item La connexion au serveur avec un pseudo a été correctement réalisée.
-		L'utilisateur a la possibilité d'entrer un pseudo et de préciser l'adresse du serveur auquel il faut se connecter pour créer des diagrammes.
-		Il lui est aussi permis de sélectionner une couleur personnalisée. 		
-		\item Dans la vue listant les diagrammes, il suffit de sélectionner le diagramme voulu et de cliquer sur "Access" pour le rejoindre. Il est aussi possible de supprimer le diagramme.
+La connexion au serveur avec un pseudo a été correctement réalisée : l'utilisateur a la possibilité d'entrer un pseudo et de préciser l'adresse du serveur auquel il faut se connecter pour créer et éditer des diagrammes. Il lui est aussi permis de sélectionner une couleur personnalisée.
+
+Dans la vue listant les diagrammes, il suffit de sélectionner le diagramme voulu et de cliquer sur "Access" pour le rejoindre. Il est aussi possible de supprimer le diagramme.
 		
 		\vspace*{\fill}
 		\begin{figure}[!h]
@@ -133,71 +131,64 @@ Dans cette partie, on rendra compte des fonctionnalités prévues du cahier des 
 		\end{figure}
 		\vspace*{\fill}
 		
-		\item Inspiré des mouvements de déplacements habituels sur les interfaces tactiles le mouvement de "swipe" permet de déplacer la vue. Il est aussi possible d'utiliser le mouvement de "pinch" pour effectuer un zoom.
-		\item Les fonctionnalités d'ajout, de suppression et de modification d'éléments ont été implémentées et seront détaillées par la suite.
-	\end{itemize}
+Inspiré des mouvements de déplacements habituels sur les interfaces tactiles, le mouvement de \textit{swipe} permet de déplacer la vue. Il est aussi possible d'utiliser le mouvement de \textit{pinch} pour effectuer un zoom.
+
+La prochaine partie expose et détaille les différentes fonctionnalités d'ajout, de manipulation, et d'édition des éléments d'un diagramme.
 	
 \newpage
 \subsubsection{Fonctionnalités tactiles implémentées}
-\begin{itemize}
-\item Icône transparent dans le coin pour ouvrir le menu
-\item Ajout de formes prédéfinies (Classes UML, cercles, carrés, rectangles, etc.) en utilisant le menu principal ou le menu contextuel.
-\item Un appui long sur un élément permet d'ouvrir un menu contextuel spécifique à l'élément :
-\begin{itemize}
-	\item pour permettre de supprimer l'élément
-	\item pour permettre de dupliquer l'élément
-	\item pour permettre de supprimer les liens sortants
-\end{itemize}
+Une icône est toujours présente et visible dans le coin supérieur droit de l'application. Elle propose les mêmes items de création et édition que le menu contextuel principal, en ajoutant la possibilité de revenir à la liste des diagrammes disponibles.
+
+Un menu contextuel circulaire apparaît après un appui long sur l'espace de travail. Depuis celui-ci, on sélectionne et crée des formes prédéfinies (Classes UML, cercles, carrés, rectangles), on recentre l'espace de travail, et on repositionne les éléments pour éviter les chevauchements.
+
+Un appui long sur un élément permet d'ouvrir un menu contextuel spécifique à l'élément, qui permet de le dupliquer, de le supprimer, ou bien encore d'effacer les liens dont il est l'origine.
 
 		\vspace*{\fill}
 		\begin{figure}[!h]
 			\centering
 			\begin{subfigure}[t]{.3\textwidth}
 				\includegraphics[width=\textwidth]{img/screen/new/colladia_draw_view_menu_main}
-				\subcaption{Menu principal}
+				\subcaption{Menu latéral}
 			\end{subfigure}
 			~
 			\begin{subfigure}[t]{.3\textwidth}
-				\includegraphics[width=\textwidth]{img/screen/colladia_draw_view_element_2}
-				\subcaption{Insertion de formes prédéfinies}
+				\includegraphics[width=\textwidth]{img/screen/colladia_draw_view_menu_contextuel_main}
+				\subcaption{Menu contextuel principal}
 			\end{subfigure}
 			~
 			\begin{subfigure}[t]{.3\textwidth}
 				\includegraphics[width=\textwidth]{img/screen/new/colladia_draw_view_menu_contextuel_select}
-				\subcaption{Menu contextuel}
+				\subcaption{Menu contextuel de selection}
 			\end{subfigure}
-			\caption{Colladia - Menu latéral et menu contextuel}
+			\caption{Colladia - Menu latéral et menus contextuels}
 		\end{figure}
 		\vspace*{\fill}
 
-\item Un appui long dans le vide permet d'ouvrir un menu pour ajouter des éléments et réaliser des actions :
-		\begin{itemize}
-			\item Ajout de formes prédéfinies
-			\item Repositionner la vue au centre du diagramme
-			\item Position automatique des éléments
-		\end{itemize}
-\item Un "double-tap" sur un élément permet d'insérer du texte dans la forme.
-\item Un mouvement de "slide" permet de se déplacer sur la zone de dessin. Si un élément est sélectionné alors on déplace ce dernier.
-\item Un appui sur un élément le sélectionne et le colore de la couleur de l'utilisateur. En appuyant de nouveau sur un autre élément ou sur un espace vide, on dé-sélectionne l'élément, et il reprend sa couleur normale.
+Un \textit{double-tap} sur un élément permet d'insérer du texte dans la forme.
+
+Un mouvement de \textit{slide} permet de se déplacer sur la zone de dessin. Si un élément est sélectionné alors on déplace ce dernier.
+
+Un appui sur un élément le sélectionne et le colore de la couleur de l'utilisateur. En appuyant de nouveau sur un autre élément ou sur un espace vide, on dé-sélectionne l'élément, et il reprend sa couleur normale.
 
 \newpage
 		\begin{figure}[!h]
 			\centering
 			\begin{subfigure}[t]{.27\textwidth}
-				\includegraphics[width=\textwidth]{img/screen/new/colladia_draw_view_menu_contextuel_main}
-				\subcaption{Menu contextuel principal}
+				\includegraphics[width=\textwidth]{img/screen/new/colladia_draw_view_element_change_text}
+				\subcaption{Ajout de texte dans un élément}
 			\end{subfigure}
 			~
 			\begin{subfigure}[t]{.27\textwidth}
 				\includegraphics[width=\textwidth]{img/screen/colladia_draw_view_element_text}
 				\subcaption{Selection}
 			\end{subfigure}
-			\caption{Colladia - Menu contextuel principal et sélection d'éléments}
+			\caption{Colladia - Ajout de texte et sélection d'élément}
 		\end{figure}
 		\vspace*{\fill}
 		
-\item Le mouvement de "pinch" habituel pour gérer les effets de zoom. Si un élément est sélectionné, ce mouvement permet d'effectuer le redimensionnement.
-\item Pour pouvoir représenter les flux dans les diagrammes, l'utilisateur peut sélectionner les ancres qui sont au nombre de 4 pour chaque élément, puis en restant appuyé sur l'écran et en rejoignant une seconde ancre un lien sera créé.
+Le mouvement de \textit{pinch} habituel est reconnu par l'application. Lorsqu'il est appliqué sur un élément, il implique son redimensionnement. Sinon, il permet de gérer le niveau de zoom sur la zone de travail.
+
+Pour pouvoir représenter des flux ou relations dans les diagrammes, l'utilisateur peut sélectionner les ancres, qui sont au nombre de 4 pour chaque élément, puis en restant appuyé sur l'écran et en rejoignant une seconde ancre un lien sera créé.
 
 	\vspace*{\fill}
 		\begin{figure}[!h]
@@ -213,7 +204,6 @@ Dans cette partie, on rendra compte des fonctionnalités prévues du cahier des 
 			\end{subfigure}
 			\caption{Colladia - Zoom et liens entre les éléments}
 		\end{figure}
-\end{itemize}
 
 L'espace de travail est virtuellement infini. Ainsi, il est plutôt facile de se perdre et de ne pas retrouver les éléments créés. Afin de pallier à ce problème d'utilisabilité, un item du menu contextuel principal permet de recentrer la vue sur l'origine.
 
@@ -222,12 +212,13 @@ Un autre item de ce menu contextuel permet d'effectuer une requête au serveur p
 \subsubsection{Fonctionnalités non-implémentées}
 Dans la version actuelle de l'application, la gestion des collaborateurs n'est pas effectuée.
 Il n'est donc pas possible de voir les vues des collaborateurs, ni de connaître la liste des utilisateurs connectés à un instant précis.
+
 Néanmoins lorsqu'un élément est sélectionné, il prend la couleur spécifique de l'utilisateur.
+
 Ainsi il est possible de déterminer lorsqu'un item est modifié par un collaborateur. 
 La gestion des différents niveaux de plans n'est pas proposé, ainsi que le fait d'attirer l'attention de l'utilisateur sur un élément en particulier, même si cette fonctionnalité est retrouvé lorsque l'on sélectionne l'élément, ce qui le colore. 
 
-
-\subsubsection{Fonctionnalités optionnelles}
+\subsubsection{Développements supplémentaires envisagés}
 Voici les fonctionnalités optionnelles pour améliorer l'expérience utilisateur qui avaient été proposées au début du projet :
 \begin{itemize}
 \item un chat pour laisser la possibilité aux membres de communiquer
