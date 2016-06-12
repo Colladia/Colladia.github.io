@@ -279,33 +279,17 @@ Ainsi le contrôleur peut gérer les éléments sans avoir à connaître le type
 Ce polymorphisme induit un couplage plus léger et permet donc une plus grande souplesse du contrôleur.
 Certaines méthodes telles que \lstinline$isTouch(PointF indexUser)$ qui permet de savoir si un élément a été touché par l'index de l'utilisateur ou \lstinline$draw()$ qui permet de dessiner l'élément.
 En surchargeant ces différentes méthodes chaque forme peut proposer un comportement différent.
-Les éléments se distinguent entre eux par le stockage d'un identifiant \lstinline$UUID$ qui est unique, ce qui permet de sérialiser/dé-sérialiser sous format JSON les objets puis retrouver leurs références. 
+Les éléments se distinguent entre eux par le stockage d'un identifiant \lstinline$UUID$ qui est unique, ce qui permet de sérialiser/dé-sérialiser sous format JSON les objets puis retrouver leurs références.
 
-	\vspace*{\fill}
-	\begin{figure}[!h]
-		\centering
-		\includegraphics[width=\textwidth]{img/UmlArchiStructureData}
-		\caption{Colladia - Structure de données simplifiée}
-	\end{figure}
-	\vspace*{\fill}
-	
 Chaque élément possède 4 ancres (Top, Bottom, Left, Right) qui permettent de lier les éléments entre eux.
 Pour ce faire chaque ancre possède l'UUID de son parent ainsi que celui de l'ancre auquel il est associé.
 Lors de la sérialisation/dé-sérialisation des éléments il est possible de retrouver l'ancre associée sans pour autant avoir une référence sur l'objet constamment.
-\vspace*{\fill}
 
-\newpage
 \subsubsection{Gestion des données}
 Le singleton \lstinline$Manager$ propose des méthodes telles que \lstinline$changeText(Element elmnt, Text text)$ qui permet dans un premier temps de changer le texte l'élément, puis demande au \lstinline$Requestator$ d'envoyer une requête au serveur pour y mettre à jour l'élément.
 Le singleton \lstinline$Requestator$ s'occupe de réaliser les requêtes au serveur en utilisant le framework android Volley.
 Le modèle possède le diagramme couramment modifié ainsi que l'horloge logique utilisé par le serveur pour renvoyer les dernières modifications effectuées.
 
-	\begin{figure}[!h]
-		\centering
-		\includegraphics[width=\textwidth]{img/UmlArchiGeneral}
-		\caption{Colladia - Gestion des données simplifiée}
-	\end{figure}
-	
 La classe \lstinline$ElementFactory$ permet de générer les éléments spécifiques tels un Cercle ou un Rectangle pour les proposer au Manager qui via le polymorphisme traitera l'objet comme un simple \lstinline$Element$.
 
 \subsubsection{Différentes vues}
@@ -314,7 +298,21 @@ On retrouve le concept du MVC au niveau des différentes vues que ce soit au niv
 % \paragraph{Édition d'un diagramme}
 Concernant la zone de dessin il a fallu mettre en place une sorte de machine à états qui changerait de "mode" selon les interactions de l'utilisateur. Il existe différents modes (\lstinline$ZOOM$, \lstinline$SCROLL$, \lstinline$INSERT$, ...), ce qui permet de déterminer le comportement à adopter selon la situation rencontrée.
 
-La méthode \lstinline$onTouchEvent()$ réagit aux différentes interactions de l'utilisateur, puis appelle la méthode adéquate comme par exemple \lstinline$moveTouch()$ qui correspond au déplacement du doigt de l'utilisateur sur l'écran.  
+La méthode \lstinline$onTouchEvent()$ réagit aux différentes interactions de l'utilisateur, puis appelle la méthode adéquate comme par exemple \lstinline$moveTouch()$ qui correspond au déplacement du doigt de l'utilisateur sur l'écran.
+
+\newpage
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[width=\textwidth]{img/UmlArchiStructureData}
+		\caption{Colladia - Structure de données simplifiée}
+	\end{figure}
+
+\newpage
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[width=.9\textwidth]{img/UmlArchiGeneral}
+		\caption{Colladia - Gestion des données simplifiée}
+	\end{figure}
 
 \newpage
 	\begin{figure}[!h]
@@ -327,4 +325,4 @@ La méthode \lstinline$onTouchEvent()$ réagit aux différentes interactions de 
 L'application possède une base intéressante et fonctionnelle, cependant on peut citer quelques limites principales.
 La première limite étant le nombre restreint d'éléments différents qui sont actuellement proposés.
 Un travail important été réalisé pour factoriser un maximum de code des éléments au niveau de la classe \lstinline$Element$, ce qui permet de créer assez facilement des formes diverses et variés.
-Une des fonctionnalités supplémentaires qui pourrait aider l'utilisateur serait de permettre une sélection groupée, en plus des différentes fonctionnalités optionnelles décrites auparavant. 
+Une des fonctionnalités supplémentaires qui pourrait aider l'utilisateur serait de permettre une sélection groupée, en plus des différentes fonctionnalités optionnelles décrites auparavant.
