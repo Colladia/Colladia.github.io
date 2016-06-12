@@ -10,11 +10,11 @@ Dans ce genre de situation, Colladia se révèle particulièrement intéressant.
 
 \subsection{Utilisateurs visés}
 Les premiers utilisateurs visés seront notamment les étudiants et les professionnels qui rencontrent la nécessité de réaliser des diagrammes ou des schémas dans leur quotidien.
-L'application est axée sur ces utilisateurs pour proposer des éléments de diagramme adaptés à leur besoins.
+L'application est axée sur ces utilisateurs pour proposer des éléments de diagramme adaptés à leurs besoins.
 
 \subsection{Étude des utilisateurs (interviews, enquêtes)}
 Afin de déterminer les besoins des utilisateurs de façon pertinente, un sondage a été réalisé auprès des étudiants de l’UTC venant de diverses branches.
-Les questions étaient relatives aux types d'outils avec lesquels ils sont habituées à réaliser des schémas. 
+Les questions étaient relatives aux types d'outils avec lesquels ils sont habitués à réaliser des schémas.
 
 \vspace*{\fill}
 \begin{figure}[!h]
@@ -26,7 +26,7 @@ Les questions étaient relatives aux types d'outils avec lesquels ils sont habit
 
 On observe que les avis sur les outils déjà existants sont assez mitigés.
 En effet, les inconvénients les plus cités sont le manque de personnalisation et le retour en arrière.
-D'un autres côté, les avantages cités sont la gratuité et la simplicité d'utilisation. 
+D'un autre côté, les avantages cités sont la gratuité et la simplicité d'utilisation.
 
 \newpage
 \begin{figure}[!h]
@@ -94,7 +94,7 @@ Il est cross-plateforme (IOS, Android et BlackBerry) mais il ne permet pas de tr
 	\caption{Aperçu des interactions tactiles de DrawExpress - Tracé de lignes}
 \end{figure}
 
-Cette application constitue une bonne base d'inspiration pour Colladia puisqu'elle  utilise particulièrement les interactions tactiles permises par les smartphones afin de créer, à partir de gestes simples à main levée, des formes prédéfinies qui constituent le diagramme.
+Cette application constitue une bonne base d'inspiration pour Colladia puisqu'elle utilise particulièrement les interactions tactiles permises par les smartphones afin de créer, à partir de gestes simples à main levée, des formes prédéfinies qui constituent le diagramme.
 De cette manière, l'ergonomie est optimisée pour les écrans tactiles et de petite taille.
 
 \subsubsection{Positionnement}
@@ -109,7 +109,7 @@ Dans cette partie, on rendra compte des fonctionnalités prévues du cahier des 
 		\item La connexion au serveur avec un pseudo a été correctement réalisée.
 		L'utilisateur a la possibilité d'entrer un pseudo et de préciser l'adresse du serveur auquel il faut se connecter pour créer des diagrammes.
 		Il lui est aussi permis de sélectionner une couleur personnalisée. 		
-		\item Dans la vue listant les diagrammes, il suffit de sélectionner le diagramme voulue et de cliquer sur "Access" pour le rejoindre. Il est aussi possible de supprimer le diagramme.
+		\item Dans la vue listant les diagrammes, il suffit de sélectionner le diagramme voulu et de cliquer sur "Access" pour le rejoindre. Il est aussi possible de supprimer le diagramme.
 		
 		\vspace*{\fill}
 		\begin{figure}[!h]
@@ -140,7 +140,7 @@ Dans cette partie, on rendra compte des fonctionnalités prévues du cahier des 
 \subsubsection{Fonctionnalités tactiles implémentées}
 \begin{itemize}
 \item Icône transparent dans le coin pour ouvrir le menu
-\item Ajout de formes prédéfinies (Classes UML, cercles, carrés, rectangles,...) en utilisant le menu principal ou le menu contextuel.
+\item Ajout de formes prédéfinies (Classes UML, cercles, carrés, rectangles, etc.) en utilisant le menu principal ou le menu contextuel.
 \item Un appui long sur un élément permet d'ouvrir un menu contextuel spécifique à l'élément :
 \begin{itemize}
 	\item pour permettre de supprimer l'élément
@@ -244,7 +244,7 @@ Voici les fonctionnalités optionnelles pour améliorer l'expérience utilisateu
 \item le dessin à main levé qui permet une reconnaissance de forme et d'ajout d'élément automatiquement
 \end{itemize}
 
-Parmi ces dernières la gestion des sauvegardes automatiques côté serveur a été implémenté, en sauvegardant dans des fichier les diagrammes sous format JSON. Les diagrammes sont donc persistants et accessibles d'une utilisation à l'autre.
+Parmi ces dernières la gestion des sauvegardes automatiques côté serveur a été implémenté, en sauvegardant dans des fichiers les diagrammes sous format JSON. Les diagrammes sont donc persistants et accessibles d'une utilisation à l'autre.
 
 \newpage
 \subsection{Technologies}
@@ -258,7 +258,7 @@ Le choix a été pris de réaliser l'application en Android natif, ce qui permet
 L'application cliente est constituée de 3 vues principales, qui s'occupent de l'essentiel des interactions avec l'utilisateur.
 Elles permettent de gérer les entrées d'utilisateurs.
 La première vue gère la connexion au serveur avec la création des données utilisateurs. Lors de la connexion, la deuxième vue est affichée pour lister les diagrammes existants et en créer de nouveau.
-Une fois un diagramme sélectionnée, la dernière vue est affichée pour permettre d'éditer le diagramme. 
+Une fois un diagramme sélectionné, la dernière vue est affichée pour permettre d'éditer le diagramme. 
 	
  	\vspace*{\fill}
 	\begin{figure}[!h]
@@ -270,9 +270,9 @@ Une fois un diagramme sélectionnée, la dernière vue est affichée pour permet
 \vspace*{-.5cm}
 
 \subsubsection{Architecture Général}
-L'application peut-être schématisée comme suit, à savoir le contrôleur situé entre la vue et le modèle. Dès qu'une modification est effectué au niveau de la liste des éléments du modèle le contrôleur met à jour la vue.
+L'application peut-être schématisée comme suit, à savoir le contrôleur situé entre la vue et le modèle. Dès qu'une modification est effectuée au niveau de la liste des éléments du modèle le contrôleur met à jour la vue.
 Dans le sens contraire lorsque l'utilisateur interagit avec la vue une requête est envoyé au serveur pour mette à jour le diagramme sur le serveur pour les autres utilisateurs.
-Le modèle est mis à jour par le serveur par le retour d'une requête de modification ou par la réponse d'une requête GET qui est réalisé périodiquement pour savoir si de nouvelles modifications sont présentes sur le serveur. 
+Le modèle est mis à jour par le serveur par le retour d'une requête de modification ou par la réponse d'une requête GET qui est réalisé périodiquement pour savoir si de nouvelles modifications sont présentes sur le serveur.
 
  	\vspace*{\fill}
 	\begin{figure}[!h]
@@ -284,7 +284,7 @@ Le modèle est mis à jour par le serveur par le retour d'une requête de modifi
 	
 \newpage
 \subsubsection{Structure de données}
-Outre les données utilisateurs, les structures de données principales concernent les éléments.
+Outre les données utilisateur, les structures de données principales concernent les éléments.
 Pour pouvoir proposer de nombreuses formes prédéfinis, il a été décidé de créer une classe Element abstraite dont hériteraient toutes les formes.
 Ainsi le contrôleur peut gérer les éléments sans avoir à connaître le type d'élément dont il s'agit.
 Ce polymorphisme induit un couplage plus léger et permet donc une plus grande souplesse du contrôleur.
@@ -320,10 +320,10 @@ Le modèle possède le diagramme couramment modifié ainsi que l'horloge logique
 La classe \lstinline$ElementFactory$ permet de générer les éléments spécifiques tels un Cercle ou un Rectangle pour les proposer au Manager qui via le polymorphisme traitera l'objet comme un simple \lstinline$Element$.
 
 \subsubsection{Différentes vues}
-On retrouve le concept du MVC au niveau des différentes vues que ce soit au niveau de la connexion au serveur avec les données utilisateurs, mais aussi avec la liste des diagrammes qui met à jour automatiquement la vue lorsqu'une modification arrive du serveur et modifie le modèle. Le design pattern Observable était une nécessité dans le contexte asynchrone de requêtage HTTP.
+On retrouve le concept du MVC au niveau des différentes vues que ce soit au niveau de la connexion au serveur avec les données utilisateur, mais aussi avec la liste des diagrammes qui met à jour automatiquement la vue lorsqu'une modification arrive du serveur et modifie le modèle. Le design pattern Observable était une nécessité dans le contexte asynchrone de requêtage HTTP.
 
 % \paragraph{Édition d'un diagramme}
-Concernant la zone de dessin il a fallu mettre en place une sorte de machine à états qui changerait de "mode" selon les interactions utilisateurs. Il existe différents modes (\lstinline$ZOOM$, \lstinline$SCROLL$, \lstinline$INSERT$, ...), ce qui permet de déterminer le comportement à adopter selon la situation rencontrée.
+Concernant la zone de dessin il a fallu mettre en place une sorte de machine à états qui changerait de "mode" selon les interactions de l'utilisateur. Il existe différents modes (\lstinline$ZOOM$, \lstinline$SCROLL$, \lstinline$INSERT$, ...), ce qui permet de déterminer le comportement à adopter selon la situation rencontrée.
 
 La méthode \lstinline$onTouchEvent()$ réagit aux différentes interactions de l'utilisateur, puis appelle la méthode adéquate comme par exemple \lstinline$moveTouch()$ qui correspond au déplacement du doigt de l'utilisateur sur l'écran.  
 
