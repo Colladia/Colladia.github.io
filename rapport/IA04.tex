@@ -360,6 +360,23 @@ Une fois l'auto-positionnement de tous les fils réalisés, l'EltAgt père envoi
 	\item \lstinline$options$ : \lstinline$[no-history, auto-positionning]$
 \end{itemize}
 
-% \subsection{Limites et améliorations}
-% \
-% auto-positionnement
+\subsection{Limites et améliorations}
+Concernant la partie serveur du projet on peut noter quelques points qui serait potentiellement limitants dans le cadre d'un déploiement à grande échelle :
+\begin{itemize}
+	\item
+	À part pour l'auto-positionnement, le serveur manipule les données envoyées par les clients sans se préoccuper de leur nature.
+	Pour ce faire, toutes les données sont stockées sous forme de string et ce récursivement.
+	Le contenu des messages transitant à la fois entre les différents agents et entre les clients et le serveur comporte de ce fait un grand nombre de caractères '\textbackslash' utilisés pour échapper les caractères de début de chaîne ('"').
+	Pour des arborescences ayant une certaine profondeur, ceci pourrait être défavorable car les messages pourraient finir par contenir plus de caractères d'échappement que de caractères utiles.
+	\item
+	Le fait d'utiliser la technologie REST implique que les clients doivent réaliser régulièrement (un centième de seconde au moment de l'écriture de ce rapport) des requêtes de type GET pour être tenus informés des modifications produites par les autres clients.
+	Si beaucoup de clients étaient connectés simultanément à un même serveur, celui-ci pourrait en pâtir.
+	Pour éviter ce problème, il faudrait faire le choix d'une autre technologie bidirectionnelle, tel que les sockets.
+\end{itemize}
+~\\
+L'algorithme d'auto-positionnement pourrait quant à lui aussi être amélioré sur certains points :
+\begin{itemize}
+	\item Prise en compte des liens pour le positionnement.
+	\item Redimensionnement intelligent des fils en fonction de leur contenu.
+	\item Ajustement de la taille de police des textes.
+\end{itemize}

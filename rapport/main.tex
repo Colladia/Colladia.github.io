@@ -5,8 +5,8 @@
 \usepackage[francais]{babel}
 
 % title info
-\newcommand{\ititle}{Projet IA04 - NF28} % title
-\newcommand{\isubtitle}{Colladia, éditeur de diagramme collaboratif}
+\newcommand{\ititle}{Colladia, éditeur de diagramme collaboratif} % title
+\newcommand{\isubtitle}{Projet IA04 - NF28} % subtitle
 \newcommand{\iauthor}{Jean Vintache\\Florian Impellettieri\\Charles Menier\\Marouane Hammi\\Adrien Jacquet} % author
 \newcommand{\idate}{\today} % date
 
@@ -19,36 +19,42 @@
 \newpage
 \section{Introduction}
 
-\subsection{Contexte}
-Ce document constitue le rapport du projet de NF28/IA04. Au cours de ce projet, l'objectif a été de proposer à des utilisateurs une expérience d'interaction agréable. Ceci à travers une interface graphique ergonomique adaptée aux besoins utilisateurs.
+% \subsection{Contexte}
+Ce document constitue le rapport de notre projet NF28/IA04.
+Au cours de ce projet, l'objectif a été de proposer à des utilisateurs une expérience d'interaction agréable, ceci à travers une interface graphique ergonomique adaptée aux besoins utilisateurs.
+Le second objectif était d'utiliser, d'une manière ou d'une autre, les fonctionnalités des systèmes multi-agents.
 
-\subsection{Équipe}
-Notre groupe est composé de 5 étudiants :
-\begin{itemize}
-\item \textsc{Impellettieri} Florian (NF28/IA04)
-\item \textsc{Vintache} Jean (NF28/IA04)
-\item \textsc{Jacquet} Adrien (IA04)
-\item \textsc{Hammi} Marouane (NF28/IA04)
-\item \textsc{Menier} Charles (NF28)
-\end{itemize}
+Dans le cadre de ce projet, nous avons choisi de réaliser un logiciel de tableau blanc collaboratif, qui permettrait de générer diverses formes, pour réaliser des diagrammes ou des schémas.
+L'architecture réalisée est composée de deux parties distinctes: la partie client qui présente les différentes interfaces graphiques correspondant au cours de NF28 et la partie serveur qui comporte un système multi-agents relatif au cours de IA04.
+Le projet a été réalisé sous Android natif ce qui permet de l'utiliser sur diverses tablettes et smartphones.
+La partie serveur, quant à elle, utilise la plateforme JADE pour faire fonctionner les agents.
 
+% \subsection{Équipe}
+% Notre groupe est composé de 5 étudiants :
+% \begin{itemize}
+% \item \textsc{Impellettieri} Florian (NF28/IA04)
+% \item \textsc{Vintache} Jean (NF28/IA04)
+% \item \textsc{Jacquet} Adrien (IA04)
+% \item \textsc{Hammi} Marouane (NF28/IA04)
+% \item \textsc{Menier} Charles (NF28)
+% \end{itemize}
 
-
-\subsection{Description}
-Le but du projet sera de créer un logiciel de tableau blanc collaboratif, qui permettrait de générer diverses formes, pour réaliser des diagrammes ou des schémas.
-
-Le projet est réalisé en deux parties distinctes: la partie client qui présente les différentes interfaces graphiques correspondant au cours de NF28 et la partie serveur qui comporte un système multi-agents relatif au cours de IA04.
-
-Le projet a été réalisé sous Android natif ce qui permet de l'utiliser sur diverses tablettes et smartphones; la partie serveur utilise la plateforme Jade pour faire fonctionner les agents.
+% \subsection{Description}
+% Lors de ce projet, nous avons choisi créer un logiciel de tableau blanc collaboratif, qui permettrait de générer diverses formes, pour réaliser des diagrammes ou des schémas.
+%
+% Le projet est réalisé en deux parties distinctes: la partie client qui présente les différentes interfaces graphiques correspondant au cours de NF28 et la partie serveur qui comporte un système multi-agents relatif au cours de IA04.
+%
+% Le projet a été réalisé sous Android natif ce qui permet de l'utiliser sur diverses tablettes et smartphones; la partie serveur utilise la plateforme Jade pour faire fonctionner les agents.
 
 \input{NF28}
 \input{IA04}
 
+\newpage
 \section{Conclusion}
 Au cours de ce projet, il nous a été possible d'utiliser à la fois les notions du cours de IA04 et de NF28 ce qui nous a permis d'approfondir nos connaissances dans ces domaines.
-De plus, le fait de travailler à 5 sur ce projet nous a demandé de communiquer et d'organiser la répartition des tâches de manière continue sur toute la durée du projet. Il a ainsi fallu utiliser des outils tel que Slack pour communiquer, git pour gérer les versions du code et Google Drive pour partager des documents.
-Les difficultés rencontrés nous ont amenés à échanger nos idées pour permettre de les résoudre de la manière la plus adapté possible, en se servant de l'expérience de chacun. 
-Cela a été un réel plaisir d'avoir travailler sur ce projet et nous avons pu apprendre beaucoup que se soit au nouveau de la conception, ou de la programmation Android.
+De plus, le fait de travailler à 5 sur ce projet nous a demandé de communiquer et d'organiser la répartition des taches de manière continue sur toute la durée du projet. Il a ainsi fallu utiliser des outils tel que Slack pour communiquer, git pour gérer les versions du code et Google Drive pour partager des documents.
 
+Les difficultés rencontrées nous ont amenés à échanger nos idées pour permettre de les résoudre de la manière la plus adaptée possible, en se servant de l'expérience de chacun.
+Ce fut un réel plaisir de travailler sur ce projet durant le semestre, et nous avons pu apprendre beaucoup que se soit au niveau de la conception, de la programmation Android ou bien de la mise en place d'un SMA complexe.
 
 \end{document}
