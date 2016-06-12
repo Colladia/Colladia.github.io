@@ -1,7 +1,18 @@
 % title
+\newcommand*{\ClipSep}{0.4cm}
 \begin{center}
-	\vspace*{.75cm}{\huge \textsc{\ititle}}~\\
-	\vspace{.25cm}{\LARGE \isubtitle}~\\
+	\hspace*{-1.8cm}
+	\begin{tikzpicture}
+		\node [inner sep=0pt] at (0,0) {\includegraphics[width=\textwidth+3cm]{img/colladia-banner}};
+		\draw [white, rounded corners=\ClipSep, line width=\ClipSep] 
+				(current bounding box.north west) -- 
+				(current bounding box.north east) --
+				(current bounding box.south east) --
+				(current bounding box.south west) -- cycle
+				;
+	\end{tikzpicture}~\\\vspace*{.5cm}
+% 	\vspace*{.75cm}{\huge \textsc{\ititle}}~\\
+% 	\vspace{.25cm}{\LARGE \isubtitle}~\\
 	\vspace{.6cm}{\large\iauthor}~\\
 	\vspace{.6cm}{\large\idate}
 \end{center}
