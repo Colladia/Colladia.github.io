@@ -1,0 +1,107 @@
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{lastpage}
+\usepackage{xcolor}
+\hypersetup{urlcolor=blue, linkcolor=blue, citecolor=black}
+\usepackage{nameref}
+\usepackage{amsmath} % equation align
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{verbatim}
+\usepackage{tikz}
+
+\makeatletter
+
+\newcommand*{\ClipSep}{0.3cm}
+
+% create beamer ball commands
+\newcommand\beamerball{%
+	\parbox[t]{10pt}{\raisebox{0.2pt}{\beamer@usesphere{item}{bigsphere}}}}
+
+\newcommand\tikzball[1]{%
+	\parbox[t]{10pt}{%
+		\tikz[baseline=(char.base)]{%
+			\node[circle,ball color=blue, shade, color=white,inner sep=1.2pt] (char) {\tiny #1};
+		}
+	}
+}
+
+% create new list for increased depth
+\usepackage{enumitem}
+\renewlist{itemize}{itemize}{6}
+\setlist[itemize]{label=\beamerball, labelsep=0pt, leftmargin=2em, itemsep=\parskip}
+\setlist[itemize, 1]{leftmargin=1.2em}
+
+\renewlist{enumerate}{enumerate}{6}
+\setlist[enumerate]{label=\protect\tikzball{\arabic*}, labelsep=0pt, leftmargin=1.4em, itemsep=\parskip}
+
+% reduce left and right text margin
+\usepackage{geometry}
+\setbeamersize{text margin left=2em}
+\setbeamersize{text margin right=1em}
+
+\newcommand*{\currentname}{
+	\rlap{\raisebox{-.6cm}{
+		\hspace*{-.7cm}
+		\begin{tikzpicture}
+		\node [inner sep=0pt] at (0,0) {\includegraphics[width=12.5cm, height=1.5cm]{img/blueprint}};
+		\draw [white, rounded corners=0.1cm, line width=0.1cm] 
+				(current bounding box.north west) -- 
+				(current bounding box.north east) --
+				(current bounding box.south east) --
+				(current bounding box.south west) -- cycle
+				;
+		\end{tikzpicture}
+	}}
+	\@currentlabelname
+}
+
+%--------------%
+% beamer theme %
+%--------------%
+
+% colors
+\definecolor{blue}{HTML}{204A87}
+\definecolor{darkblue}{HTML}{183866}
+\definecolor{lightblue}{HTML}{275BA6}
+\definecolor{grey}{HTML}{D3D3D3}
+
+% outer theme
+% \useoutertheme[footline=empty, subsection=false]{smoothbars}
+% \useoutertheme{infolines}
+\useoutertheme{default}
+
+% inner theme
+\useinnertheme{rounded}
+
+% color theme
+\setbeamercolor{structure}{fg=white, bg=blue}
+\setbeamercolor{titlelike}{fg=white, bg=white}
+\setbeamercolor{frametitle}{fg=white}
+\setbeamercolor{section in head/foot}{fg=white} % miniframe
+\setbeamercolor{section in toc}{fg=black, bg=white}
+\setbeamercolor{subsection in toc}{fg=black, bg=white}
+\setbeamercolor{subsubsection in toc}{fg=black, bg=white}
+\setbeamercolor{item in toc}{fg=red, bg=green}
+\setbeamercolor{item}{fg=blue, bg=blue}
+\setbeamercolor{block body}{bg=grey}
+\setbeamercolor{palette primary}{bg=lightblue, fg=white}
+\setbeamercolor{palette secondary}{bg=blue, fg=white}
+\setbeamercolor{palette tertiary}{bg=darkblue, fg=white}
+
+\addtobeamertemplate{frametitle begin}{\pgfsetfillopacity{0}}{\pgfsetfillopacity{1}}
+
+% font theme
+\setbeamerfont{section in toc}{size=\small}
+\setbeamerfont{subsection in toc}{size=\small}
+\setbeamerfont{subsubsection in toc}{size=\small}
+\setbeamerfont{author}{size=\footnotesize}
+\setbeamerfont{date}{size=\small}
+
+% navigation
+\setbeamertemplate{navigation symbols}{}
+
+% other
+% \setbeamertemplate{blocks}[default] % squared blocks
+
+\makeatother
