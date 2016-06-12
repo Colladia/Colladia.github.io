@@ -115,7 +115,7 @@ Dans cette partie, on rendra compte des fonctionnalités prévues du cahier des 
 		\begin{figure}[!h]
 			\centering
 			\begin{subfigure}[t]{.3\textwidth}
-				\includegraphics[width=\textwidth]{img/screen/colladia_connexion}
+				\includegraphics[width=\textwidth]{img/screen/new/colladia_connexion}
 				\subcaption{Connexion}
 			\end{subfigure}
 			~
@@ -144,13 +144,15 @@ Dans cette partie, on rendra compte des fonctionnalités prévues du cahier des 
 \item Un appui long sur un élément permet d'ouvrir un menu contextuel spécifique à l'élément :
 \begin{itemize}
 	\item pour permettre de supprimer l'élément
+	\item pour permettre de dupliquer l'élément
+	\item pour permettre de supprimer les liens sortants
 \end{itemize}
 
 		\vspace*{\fill}
 		\begin{figure}[!h]
 			\centering
 			\begin{subfigure}[t]{.3\textwidth}
-				\includegraphics[width=\textwidth]{img/screen/colladia_draw_view_menu_main}
+				\includegraphics[width=\textwidth]{img/screen/new/colladia_draw_view_menu_main}
 				\subcaption{Menu principal}
 			\end{subfigure}
 			~
@@ -160,7 +162,7 @@ Dans cette partie, on rendra compte des fonctionnalités prévues du cahier des 
 			\end{subfigure}
 			~
 			\begin{subfigure}[t]{.3\textwidth}
-				\includegraphics[width=\textwidth]{img/screen/colladia_draw_view_menu_contextuel_select}
+				\includegraphics[width=\textwidth]{img/screen/new/colladia_draw_view_menu_contextuel_select}
 				\subcaption{Menu contextuel}
 			\end{subfigure}
 			\caption{Colladia - Menu latéral et menu contextuel}
@@ -181,7 +183,7 @@ Dans cette partie, on rendra compte des fonctionnalités prévues du cahier des 
 		\begin{figure}[!h]
 			\centering
 			\begin{subfigure}[t]{.27\textwidth}
-				\includegraphics[width=\textwidth]{img/screen/colladia_draw_view_menu_contextuel_main}
+				\includegraphics[width=\textwidth]{img/screen/new/colladia_draw_view_menu_contextuel_main}
 				\subcaption{Menu contextuel principal}
 			\end{subfigure}
 			~
@@ -205,7 +207,7 @@ Dans cette partie, on rendra compte des fonctionnalités prévues du cahier des 
 			\end{subfigure}
 			~
 			\begin{subfigure}[t]{.27\textwidth}
-				\includegraphics[width=\textwidth]{img/screen/colladia_draw_view_element_links}
+				\includegraphics[width=\textwidth]{img/screen/new/colladia_draw_view_element_links}
 				\subcaption{Liens}
 			\end{subfigure}
 			\caption{Colladia - Zoom et liens entre les éléments}
@@ -214,9 +216,9 @@ Dans cette partie, on rendra compte des fonctionnalités prévues du cahier des 
 
 \newpage
 \subsubsection{Fonctionnalités tactiles non-implémentées}
-Dans la version actuelle de l'application, la gestion des utilisateurs n'est pas effectuée.
-Il n'est donc pas possible de voir les vues des autres utilisateurs.
-Néanmoins lorsqu'un élément est sélectionné par un collaborateur, cet élément prend la couleur spécifique de l'utilisateur.
+Dans la version actuelle de l'application, la gestion des collaborateurs n'est pas effectuée.
+Il n'est donc pas possible de voir les vues des collaborateurs, ni de connaître la liste des utilisateurs connectés à un instant précis.
+Néanmoins lorsqu'un élément est sélectionné, il prend la couleur spécifique de l'utilisateur.
 Ainsi il est possible de déterminer lorsqu'un item est modifié par un collaborateur. 
 La gestion des différents niveaux de plans n'est pas proposé, ainsi que le fait d'attirer l'attention de l'utilisateur sur un élément en particulier, même si cette fonctionnalité est retrouvé lorsque l'on sélectionne l'élément, ce qui la colore. 
 
@@ -228,62 +230,67 @@ Afin de donner une expérience plus intéressante pour l'utilisateur et d'utilis
 \end{itemize}
 
 \subsubsection{Fonctionnalités optionnelles}
-Voici les fonctionnalités optionnelles pour améliorer l'expérience utilisateur qui avaient été proposés au début du projet :
+Voici les fonctionnalités optionnelles pour améliorer l'expérience utilisateur qui avaient été proposées au début du projet :
 \begin{itemize}
 \item un chat pour laisser la possibilité aux membres de communiquer
 \item l'utilisation de commandes vocales pour faciliter l'utilisation de l'application
 \item un système de commentaire sur les diagrammes, pour fournir des informations complémentaires
 \item une fonction de recherche de texte
-\item la fusion de diagramme
-\item l'exportation des diagrammes sous différents formats
-\item la gestion des utilisateurs et des droits
-\item la gestion des sauvegardes (automatique côté serveur)
+\item la fusion de diagrammes
+\item l'exportation des diagrammes sous différents formats (graphml par exemple)
+\item la gestion des utilisateurs
+\item la possibilité de restreindre l'accès à un diagramme par un mot de passe
+\item la gestion des sauvegardes hors-ligne
 \item le dessin à main levé qui permet une reconnaissance de forme et d'ajout d'élément automatiquement
 \end{itemize}
-Parmi ces dernières la gestion des sauvegardes automatiques côté serveur a été implémenté, en sauvegardant dans des fichier les diagrammes sous format JSON.
 
+Parmi ces dernières la gestion des sauvegardes automatiques côté serveur a été implémenté, en sauvegardant dans des fichier les diagrammes sous format JSON. Les diagrammes sont donc persistants et accessibles d'une utilisation à l'autre.
+
+\newpage
 \subsection{Technologies}
 Concernant les technologies employées, le serveur utilise la plateforme multi-agent JADE et communique avec le client via une API Restlet.
 Côté client il avait été envisagé de réaliser l'application en utilisant Xamarin dans un premier temps, néanmoins la technologie ne fonctionnait pas correctement chez tous les membres du projet.
 Il a fallu réagir et prendre une décision pour pouvoir réaliser le projet dans le délai imparti.
 Le choix a été pris de réaliser l'application en Android natif, ce qui permet d'avoir accès à une documentation importante et d'avoir une application réactive.
+\vspace*{-.5cm}
 
 \subsection{Architecture de l'application}
-L'application est cliente est constitué de 3 vues principales, qui s'occupent de l'essentiel des interactions avec l'utilisateur.
+L'application cliente est constituée de 3 vues principales, qui s'occupent de l'essentiel des interactions avec l'utilisateur.
 Elles permettent de gérer les entrées d'utilisateurs.
-	
-	\vspace*{\fill}
-	\begin{figure}[!h]
-		\centering
-		\includegraphics[width=.8\textwidth]{img/FlowAppli}
-		\caption{Colladia - Vues principales}
-	\end{figure}
-	\vspace*{\fill}
-	
 La première vue gère la connexion au serveur avec la création des données utilisateurs. Lors de la connexion, la deuxième vue est affichée pour lister les diagrammes existants et en créer de nouveau.
 Une fois un diagramme sélectionnée, la dernière vue est affichée pour permettre d'éditer le diagramme. 
+	
+ 	\vspace*{\fill}
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/FlowAppli}
+		\caption{Colladia - Vues principales}
+	\end{figure}
+ 	\vspace*{\fill}
+\vspace*{-.5cm}
 
 \subsubsection{Architecture Général}
 L'application peut-être schématisée comme suit, à savoir le contrôleur situé entre la vue et le modèle. Dès qu'une modification est effectué au niveau de la liste des éléments du modèle le contrôleur met à jour la vue.
 Dans le sens contraire lorsque l'utilisateur interagit avec la vue une requête est envoyé au serveur pour mette à jour le diagramme sur le serveur pour les autres utilisateurs.
 Le modèle est mis à jour par le serveur par le retour d'une requête de modification ou par la réponse d'une requête GET qui est réalisé périodiquement pour savoir si de nouvelles modifications sont présentes sur le serveur. 
 
-	\vspace*{\fill}
+ 	\vspace*{\fill}
 	\begin{figure}[!h]
 		\centering
-		\includegraphics[width=.7\textwidth]{img/archiGeneral}
+		\includegraphics[width=.6\textwidth]{img/archiGeneral}
 		\caption{Colladia - Schéma de l'architecture général}
 	\end{figure}
-	\vspace*{\fill}
+ 	\vspace*{\fill}
 	
 \newpage
 \subsubsection{Structure de données}
 Outre les données utilisateurs, les structures de données principales concernent les éléments.
-Pour pouvoir proposer de nombreuses formes prédéfinis, il a été décidé de créer une classe Element abstraite dont hériterait toutes les formes.
+Pour pouvoir proposer de nombreuses formes prédéfinis, il a été décidé de créer une classe Element abstraite dont hériteraient toutes les formes.
 Ainsi le contrôleur peut gérer les éléments sans avoir à connaître le type d'élément dont il s'agit.
-Certaines méthodes tel que isTouch(PointF indexUser) qui permet de savoir si un élément a été touché par l'index de l'utilisateur ou draw() qui permet de dessiner l'élément.
+Ce polymorphisme induit un couplage plus léger et permet donc une plus grande souplesse du contrôleur.
+Certaines méthodes telles que \lstinline$isTouch(PointF indexUser)$ qui permet de savoir si un élément a été touché par l'index de l'utilisateur ou \lstinline$draw()$ qui permet de dessiner l'élément.
 En surchargeant ces différentes méthodes chaque forme peut proposer un comportement différent.
-Les éléments se distinguent entre eux par leur UUID qui est unique, ce qui permet de sérialiser/dé-sérialiser sous format JSON les objets puis retrouver leurs références.
+Les éléments se distinguent entre eux par le stockage d'un identifiant \lstinline$UUID$ qui est unique, ce qui permet de sérialiser/dé-sérialiser sous format JSON les objets puis retrouver leurs références. 
 
 	\vspace*{\fill}
 	\begin{figure}[!h]
@@ -300,8 +307,8 @@ Lors de la sérialisation/dé-sérialisation des éléments il est possible de r
 
 \newpage
 \subsubsection{Gestion des données}
-Le singleton Manager propose des méthodes tel que changeText(Element elmnt, Text text) qui permet dans un premier temps de changer le texte l'élément, puis demande au Requestator d'envoyer une requête au serveur pour y mettre à jour l'élément.
-Le singleton Requestator s'occupe de réaliser les requêtes au serveur en utilisant la libraire Volley de Google.
+Le singleton \lstinline$Manager$ propose des méthodes telles que \lstinline$changeText(Element elmnt, Text text)$ qui permet dans un premier temps de changer le texte l'élément, puis demande au \lstinline$Requestator$ d'envoyer une requête au serveur pour y mettre à jour l'élément.
+Le singleton \lstinline$Requestator$ s'occupe de réaliser les requêtes au serveur en utilisant le framework android Volley.
 Le modèle possède le diagramme couramment modifié ainsi que l'horloge logique utilisé par le serveur pour renvoyer les dernières modifications effectuées.
 
 	\begin{figure}[!h]
@@ -310,15 +317,15 @@ Le modèle possède le diagramme couramment modifié ainsi que l'horloge logique
 		\caption{Colladia - Gestion des données simplifiée}
 	\end{figure}
 	
-La classe ElementFactory permet de générer les éléments spécifiques tel un Cercle ou un Rectangle pour les proposer au Manager qui via le polymorphisme traitera l'objet comme un simple Element.
+La classe \lstinline$ElementFactory$ permet de générer les éléments spécifiques tels un Cercle ou un Rectangle pour les proposer au Manager qui via le polymorphisme traitera l'objet comme un simple \lstinline$Element$.
 
 \subsubsection{Différentes vues}
-On retrouve le concept du MVC au niveau des différentes vues que se soit au niveau de la connexion au serveur avec les données utilisateurs, mais aussi avec la liste des diagrammes qui met à jour automatiquement la vue lorsqu'une modification arrive du serveur et modifie le modèle.
+On retrouve le concept du MVC au niveau des différentes vues que ce soit au niveau de la connexion au serveur avec les données utilisateurs, mais aussi avec la liste des diagrammes qui met à jour automatiquement la vue lorsqu'une modification arrive du serveur et modifie le modèle. Le design pattern Observable était une nécessité dans le contexte asynchrone de requêtage HTTP.
 
 % \paragraph{Édition d'un diagramme}
-Concernant la zone de dessin il a fallu mettre en place une sorte de machine à états qui changerait de "mode" selon les interactions utilisateurs. Il existe différents modes (ZOOM, SCROLL, INSERT,...), ce qui permet de déterminer le comportement à adopter selon la situation rencontrée.
+Concernant la zone de dessin il a fallu mettre en place une sorte de machine à états qui changerait de "mode" selon les interactions utilisateurs. Il existe différents modes (\lstinline$ZOOM$, \lstinline$SCROLL$, \lstinline$INSERT$, ...), ce qui permet de déterminer le comportement à adopter selon la situation rencontrée.
 
-La méthode onTouchEvent() réagit aux différents interactions de l'utilisateur, puis appelle la méthode adéquate comme par exemple moveTouch() qui correspond au déplacement du doigt de l'utilisateur sur l'écran.
+La méthode \lstinline$onTouchEvent()$ réagit aux différentes interactions de l'utilisateur, puis appelle la méthode adéquate comme par exemple \lstinline$moveTouch()$ qui correspond au déplacement du doigt de l'utilisateur sur l'écran.  
 
 \newpage
 	\begin{figure}[!h]
@@ -330,5 +337,5 @@ La méthode onTouchEvent() réagit aux différents interactions de l'utilisateur
 \subsection{Limites et améliorations}
 L'application possède une base intéressante et fonctionnelle, cependant on peut citer quelques limites principales.
 La première limite étant le nombre restreint d'éléments différents qui sont actuellement proposés.
-Un travail important été réalisé pour factoriser un maximum de code des éléments au niveau de la classe Element, ce qui permet de créer assez facilement des formes diverses et variés.
-Une des fonctionnalités supplémentaires qui pourrait aider l'utilisateur serait de permettre une sélection groupé, en plus des différentes fonctionnalités optionnelles décrites auparavant.
+Un travail important été réalisé pour factoriser un maximum de code des éléments au niveau de la classe \lstinline$Element$, ce qui permet de créer assez facilement des formes diverses et variés.
+Une des fonctionnalités supplémentaires qui pourrait aider l'utilisateur serait de permettre une sélection groupée, en plus des différentes fonctionnalités optionnelles décrites auparavant. 
