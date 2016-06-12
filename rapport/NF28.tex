@@ -52,7 +52,7 @@ On peut également voir que les avis quant à l'utilisation d'un appareil mobile
 
 Enfin, l'idée d'une application permettant le travail collaboratif sur appareil mobile est aussi partagée mais tend à pencher pour un avis positif.
 
-\begin{figure}[h]
+\begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.6\textwidth]{img/sondage_colladia}
 	\caption{Sondage - Avis sur Colladia}
@@ -68,7 +68,7 @@ Lors de nos recherches, deux applications semblaient réellement en concurrence 
 \subsubsection{Draw.io}
 Néanmoins draw.io, bien que collaboratif n'utilise pas pleinement les fonctionnalités tactiles des supports mobiles.
 
-\begin{figure}[h]
+\begin{figure}[!h]
 	\centering
 	\includegraphics[width=6cm]{img/drawio}
 	\caption{draw.io - Édition en collaboration}
@@ -94,111 +94,93 @@ Ce que fait DrawExpress c'est de proposer un éditeur de diagramme sur mobile. I
 
 Cette application constitue une bonne base d'inspiration pour Colladia puisqu'elle  utilise particulièrement les interactions tactiles permises par les smartphones afin de créer, à partir de gestes simples à main levée, des formes prédéfinies qui constituent le diagramme construit. De cette manière, l'ergonomie est optimisée pour les écrans tactiles et de petite taille.
 
-
-
 \subsubsection{Positionnement}
 Le but de Colladia est donc de proposer les deux points forts ces deux logiciels concurrents, à savoir le travail collaboratif et les interactions tactiles.
 
 \subsection{Fonctionnalités}
-Dans cette partie, on rendra compte des fonctionnalités prévu du cahier des charges, en précisant les modifications qu'elles ont subi lors de leur implémentation.
-
+Dans cette partie, on rendra compte des fonctionnalités prévues du cahier des charges, en précisant les modifications qu'elles ont subi lors de leur implémentation.
 
 \subsubsection{Fonctionnalités générales}
-	\begin{itemize}
-		\item La connexion au serveur avec un pseudo a été correctement réalisée. L'utilisateur a la possibilité d'entrer un pseudo et de préciser l'adresse du serveur auquel il faut se connecter pour créer des diagrammes. Il lui est aussi permis de sélectionner une couleur personnalisé. 
-		\begin{figure}[!h]
-			\centering
-			\includegraphics[width=5cm]{img/screen/new/colladia_connexion}
-			\caption{Colladia - Connexion}
-		\end{figure}
-		
-		\item Il est possible de créer un nouveau diagramme sur l'interface listant les diagrammes déjà existants.
-		\begin{figure}[!h]
+La connexion au serveur avec un pseudo a été correctement réalisée. L'utilisateur a la possibilité d'entrer un pseudo et de préciser l'adresse du serveur auquel il faut se connecter pour créer des diagrammes. Il lui est aussi proposé de choisir une couleur, qui sera utilisée pour l'identifier visuellement dans les interactions avec ses collaborateurs. \par
+    \begin{minipage}{\linewidth}
+      \centering
+      \includegraphics[width=5cm]{img/screen/new/colladia_connexion}
+      \captionof{figure}{Colladia - Connexion}
+    \end{minipage}
+
+Il est possible de créer un nouveau diagramme sur l'interface listant les diagrammes déjà existants.\par
+		\begin{minipage}{\linewidth}
 			\centering
 			\includegraphics[width=5cm]{img/screen/colladia_create_workspace}
-			\caption{Colladia - Création diagramme}
-		\end{figure}
-		
-		\item Dans la vue listant les diagrammes, il suffit de sélectionner le diagramme voulue et de cliquer sur "Access" pour le rejoindre. Il est aussi possible de supprimer le diagramme.
-		\begin{figure}[!h]
+			\captionof{figure}{Colladia - Création diagramme}
+    \end{minipage}
+
+Dans la vue listant les diagrammes, il suffit de sélectionner le diagramme voulue et de cliquer sur "Access" pour le rejoindre. Il est aussi possible de supprimer le diagramme.\par
+		\begin{minipage}{\linewidth}
 			\centering
 			\includegraphics[width=5cm]{img/screen/colladia_workspaces_select}
-			\caption{Colladia - Sélection diagramme}
-		\end{figure}
-		
-		\item Inspiré des mouvements de déplacements habituelles sur les interfaces tactiles le mouvement de "swipe" permet de déplacer la vue. Il est aussi possible d'utiliser le mouvement de "pinch" pour effectuer un zoom.
-		
-		\item Les fonctionnalités d'ajout, de suppression et de modification d'éléments ont été implémentés et seront détaillées par la suite.
-	\end{itemize}
-	
+			\captionof{figure}{Colladia - Sélection diagramme}
+    \end{minipage}
+
+Inspiré des mouvements de déplacements habituelles sur les interfaces tactiles le mouvement de "swipe" permet de déplacer la vue. Il est aussi possible d'utiliser le mouvement de "pinch" pour effectuer un zoom.
+Les fonctionnalités d'ajout, de suppression et de modification d'éléments ont été implémentées et seront détaillées par la suite.
 	
 \subsubsection{Fonctionnalités tactiles implémentées}
 \begin{itemize}
-\item Icône transparent dans le coin pour ouvrir le menu
-		\begin{figure}[!h]
+\item Icône transparente dans le coin pour ouvrir le menu.\par
+		\begin{minipage}{\linewidth}
 			\centering
 			\includegraphics[width=5cm]{img/screen/new/colladia_draw_view_menu_main}
-			\caption{Colladia - Menu principal}
-		\end{figure}
-\item Ajout de formes prédéfinies (Classes UML, cercles, carrés, rectangles,...) en utilisant le menu principal ou le menu contextuel.
-		\begin{figure}[!h]
+			\captionof{figure}{Colladia - Menu principal}
+		\end{minipage}
+\item Ajout de formes prédéfinies (Classes UML, cercles, carrés, rectangles,...) en utilisant le menu principal ou le menu contextuel.\par
+		\begin{minipage}{\linewidth}
 			\centering
 			\includegraphics[width=5cm]{img/screen/colladia_draw_view_element_2}
-			\caption{Colladia - Insertion de formes prédéfinies}
-		\end{figure}
-
-
+			\captionof{figure}{Colladia - Insertion de formes prédéfinies}
+		\end{minipage}
 \item Un appui long sur un élément permet d'ouvrir un menu contextuel spécifique à l'élément :
-\begin{itemize}
-	\item pour permettre de supprimer l'élément
-	\item pour permettre de dupliquer l'élément
-	\item pour permettre de supprimer les liens sortants
-\end{itemize}
-		\begin{figure}[!h]
-			\centering
-			\includegraphics[width=5cm]{img/screen/new/colladia_draw_view_menu_contextuel_select}
-			\caption{Colladia - Modification d'éléments}
-		\end{figure}
-		
-		
+  \begin{itemize}
+  	\item pour permettre de supprimer l'élément
+  	\item pour permettre de dupliquer l'élément
+  	\item pour permettre de supprimer les liens sortants
+  \end{itemize}
+  \begin{minipage}{\linewidth}
+  	\centering
+  	\includegraphics[width=5cm]{img/screen/new/colladia_draw_view_menu_contextuel_select}
+  	\captionof{figure}{Colladia - Modification d'éléments}
+  \end{minipage}		
 \item Un appui long dans le vide permet d'ouvrir un menu pour ajouter des éléments et réaliser des actions :
 		\begin{itemize}
 			\item Ajout de formes prédéfinies
 			\item Repositionner la vue au centre du diagramme
 			\item Position automatique des éléments
 		\end{itemize}
-		\begin{figure}[!h]
+		\begin{minipage}{\linewidth}
 			\centering
 			\includegraphics[width=5cm]{img/screen/new/colladia_draw_view_menu_contextuel_main}
-			\caption{Colladia - Menu contextuel principal}
-		\end{figure}
-		
+			\captionof{figure}{Colladia - Menu contextuel principal}
+		\end{minipage}
 \item Un "double-tap" sur un élément permet d'insérer du texte dans la forme.
-
 \item Un mouvement de "slide" permet de se déplacer sur la zone de dessin. Si un élément est sélectionné alors on déplace ce dernier.
-
-
-\item Un appui sur un élément le sélectionne et le colore de la couleur de l'utilisateur. En appuyant de nouveau sur un autre élément ou sur un espace vide, on dé-sélectionne l'élément, et il reprend sa couleur normale.
-		\begin{figure}[!h]
+\item Un appui sur un élément le sélectionne et le colore de la couleur de l'utilisateur. En appuyant de nouveau sur un autre élément ou sur un espace vide, on dé-sélectionne l'élément, et il reprend sa couleur normale.\par
+		\begin{minipage}{\linewidth}
 			\centering
 			\includegraphics[width=5cm]{img/screen/colladia_draw_view_element_text}
-			\caption{Colladia - Sélection élément}
-		\end{figure}
-
-\item Le mouvement de "pinch" habituel pour gérer les effets de zoom. Si un élément est sélectionné, ce mouvement permet d'effectuer le redimensionnement.
-		\begin{figure}[!h]
+			\captionof{figure}{Colladia - Sélection élément}
+		\end{minipage}
+\item Le mouvement de "pinch" habituel pour gérer les effets de zoom. Si un élément est sélectionné, ce mouvement permet d'effectuer le redimensionnement.\par
+		\begin{minipage}{\linewidth}
 			\centering
 			\includegraphics[width=5cm]{img/screen/colladia_draw_view_zoom_out}
-			\caption{Colladia - Zoom arrière}
-		\end{figure}
-
-
-\item Pour pouvoir représenter les flux dans les diagrammes, l'utilisateur peut sélectionner les ancres qui sont au nombre de 4 pour chaque élément, puis en restant appuyé sur l'écran et en rejoignant une seconde ancre un lien sera créée.
-		\begin{figure}[!h]
+			\captionof{figure}{Colladia - Zoom arrière}
+		\end{minipage}
+\item Pour pouvoir représenter les flux dans les diagrammes, l'utilisateur peut sélectionner les ancres qui sont au nombre de 4 pour chaque élément, puis en restant appuyé sur l'écran et en rejoignant une seconde ancre un lien sera créée.\par
+		\begin{minipage}{\linewidth}
 			\centering
 			\includegraphics[width=5cm]{img/screen/new/colladia_draw_view_element_links}
-			\caption{Colladia - Liens entre éléments}
-		\end{figure}
+			\captionof{figure}{Colladia - Liens entre éléments}
+		\end{minipage}
 \end{itemize}
 	
 \subsubsection{Fonctionnalités tactiles non-implémentées}
@@ -245,7 +227,7 @@ Elles permettent de gérer les entrées d'utilisateurs.
 La première vue gère la connexion au serveur avec la création des données utilisateurs. Lors de la connexion, la deuxième vue est affichée pour lister les diagrammes existants et en créer de nouveau.
 Une fois un diagramme sélectionnée, la dernière vue est affichée pour permettre d'éditer le diagramme. 
 
-\subsubsection{Architecture Général}
+\subsubsection{Architecture Générale}
 L'application peut-être schématisée comme suit, à savoir le contrôleur situé entre la vue et le modèle. Dès qu'une modification est effectué au niveau de la liste des éléments du modèle le contrôleur met à jour la vue.
 Dans le sens contraire lorsque l'utilisateur interagit avec la vue une requête est envoyé au serveur pour mette à jour le diagramme sur le serveur pour les autres utilisateurs.
 Le modèle est mis à jour par le serveur par le retour d'une requête de modification ou par la réponse d'une requête GET qui est réalisé périodiquement pour savoir si de nouvelles modifications sont présentes sur le serveur. 
