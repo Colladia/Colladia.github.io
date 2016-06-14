@@ -87,6 +87,31 @@ hr {
     -moz-animation-timing-function: linear;
 }
 
+.feature-explanation {
+	padding: 5px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.feature-explanation.cell {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.feature-explanation .feature-screenshot img {
+	width: 100%;
+}
+
+.feature-explanation .feature-text {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.feature-explanation .feature-screenshot {
+	display: table-cell;
+	width: 35%;
+}
+
 .video-wrapper {
 	position: relative;
 	padding-bottom: 56.25%; /* 16:9 */
